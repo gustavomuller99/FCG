@@ -6,7 +6,11 @@
 const float PI = 3.14159265359;
 
 enum KeyMapping {
-    W = 0
+    W = 0,
+    A = 1,
+    S = 2,
+    D = 3,
+    LeftMouse = 4
 };
 
 static GLenum glCheckError_(const char *file, int line)

@@ -28,6 +28,9 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 void CursorPosCallback(GLFWwindow* window, double xpos, double ypos);
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 
+double g_LastCursorPosX = 0.0;
+double g_LastCursorPosY = 0.0;
+
 /* CURRENT PROGRAM SCREEN */
 std::unique_ptr<ProgramScreen> currentScreen = std::make_unique<SnakeGame>(SnakeGame());
 
@@ -228,10 +231,24 @@ void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 
 void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    {
+        glfwGetCursorPos(window, &g_LastCursorPosX, &g_LastCursorPosY);
+        globalState.setLeftMousePressed(true);
+    }
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
+    {
+        globalState.setLeftMousePressed(false);
+    }
 }
 
 void CursorPosCallback(GLFWwindow* window, double xpos, double ypos)
 {
+    globalState.cursor_dx = xpos - g_LastCursorPosX;
+    globalState.cursor_dy = ypos - g_LastCursorPosY;
+
+    g_LastCursorPosX = xpos;
+    g_LastCursorPosY = ypos;
 }
 
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
@@ -240,6 +257,29 @@ void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mod)
 {
+    if (key == GLFW_KEY_W && action == GLFW_PRESS) {
+        globalState.setWPressed(true);
+    } else if (key == GLFW_KEY_W && action == GLFW_RELEASE) {
+        globalState.setWPressed(false);
+    }
+
+    if (key == GLFW_KEY_S && action == GLFW_PRESS) {
+        globalState.setSPressed(true);
+    } else if (key == GLFW_KEY_S && action == GLFW_RELEASE) {
+        globalState.setSPressed(false);
+    }
+
+    if (key == GLFW_KEY_A && action == GLFW_PRESS) {
+        globalState.setAPressed(true);
+    } else if (key == GLFW_KEY_A && action == GLFW_RELEASE) {
+        globalState.setAPressed(false);
+    }
+
+    if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+        globalState.setDPressed(true);
+    } else if (key == GLFW_KEY_D && action == GLFW_RELEASE) {
+        globalState.setDPressed(false);
+    }
 }
 
 void ErrorCallback(int error, const char* description)
