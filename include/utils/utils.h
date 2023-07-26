@@ -3,6 +3,8 @@
 
 #include <cstdio>
 
+const float PI = 3.14159265359;
+
 enum KeyMapping {
     W = 0
 };

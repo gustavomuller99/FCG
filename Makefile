@@ -1,6 +1,6 @@
-./bin/Linux/main: src/main.cpp src/glad.c src/models/* src/screens/* src/utils/* include/matrices.h include/utils.h include/dejavufont.h
+./bin/Linux/main: src/main.cpp src/glad.c src/models/* src/screens/* src/utils/* include/utils/* include/interfaces/* include/screens/* include/models/*
 	mkdir -p bin/Linux
-	g++ -std=c++11 -Wall -Wno-unused-function -g -I ./include/ -o ./bin/Linux/main src/main.cpp src/glad.c src/models/* src/screens/* src/utils/* ./lib-linux/libglfw3.a -lrt -lm -ldl -lX11 -lpthread -lXrandr -lXinerama -lXxf86vm -lXcursor
+	g++ -std=c++14 -Wall -Wno-unused-function -g -I ./include/ -o ./bin/Linux/main src/main.cpp src/glad.c src/models/* src/screens/* src/utils/* ./lib-linux/libglfw3.a -lrt -lm -ldl -lX11 -lpthread -lXrandr -lXinerama -lXxf86vm -lXcursor
 
 .PHONY: clean run
 clean:

@@ -12,17 +12,8 @@
 // Headers das bibliotecas OpenGL
 #include <glad/glad.h>   
 #include <GLFW/glfw3.h>  
-
-#include <glm/mat4x4.hpp>
-#include <glm/vec4.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include <utils.h>
-#include <matrices.h>
-
-#include "utils/stateUtils.cpp"
-
-GLuint g_GpuProgramID = 0;
+#include <screens/snakegame.h>
+#include <screens/home.h>
 
 void LoadShadersFromFiles(); // Carrega os shaders de vértice e fragmento, criando um programa de GPU
 GLuint LoadShader_Vertex(const char* filename);   // Carrega um vertex shader
@@ -37,8 +28,8 @@ void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 void CursorPosCallback(GLFWwindow* window, double xpos, double ypos);
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 
-/* Estado global */
-GlobalState globalState = GlobalState();
+/* CURRENT PROGRAM SCREEN */
+std::unique_ptr<ProgramScreen> currentScreen = std::make_unique<SnakeGame>(SnakeGame());
 
 int main()
 {
@@ -93,10 +84,10 @@ int main()
 
     glEnable(GL_DEPTH_TEST);
 
-    // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela
+    // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela    
     while (!glfwWindowShouldClose(window))
     {
-        globalState.currentScreen.updateScreenFrame();
+        currentScreen->updateScreenFrame();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -187,10 +178,10 @@ void LoadShadersFromFiles()
     GLuint vertex_shader_id = LoadShader_Vertex("../../src/shaders/shader_vertex.glsl");
     GLuint fragment_shader_id = LoadShader_Fragment("../../src/shaders/shader_fragment.glsl");
 
-    if ( g_GpuProgramID != 0 )
-        glDeleteProgram(g_GpuProgramID);
+    if ( globalState.g_GpuProgramID != 0 )
+        glDeleteProgram(globalState.g_GpuProgramID);
 
-    g_GpuProgramID = CreateGpuProgram(vertex_shader_id, fragment_shader_id);
+    globalState.g_GpuProgramID = CreateGpuProgram(vertex_shader_id, fragment_shader_id);
 }
 
 GLuint CreateGpuProgram(GLuint vertex_shader_id, GLuint fragment_shader_id)
@@ -232,7 +223,7 @@ GLuint CreateGpuProgram(GLuint vertex_shader_id, GLuint fragment_shader_id)
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
-    // g_ScreenRatio = (float)width / height;
+    globalState.g_ScreenRatio = (float) width / height;
 }
 
 void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)

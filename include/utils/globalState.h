@@ -1,13 +1,15 @@
-#include <glad/glad.h>
+#ifndef _GLOBAL_H
+#define _GLOBAL_H
 
-#include "../screens/home.cpp"
-#include "../screens/snakegame.cpp"
-#include <utils.h>
+#include <glad/glad.h>
+#include <utils/utils.h>
+#include <memory>
 
 class GlobalState {
     public:
-        ProgramScreen currentScreen = Home();
+        GLuint g_GpuProgramID = 0;
         GLuint64 pressedKeys = 0;
+        float g_ScreenRatio = 1.0f;
 
         void setWPressed(bool pressed) {
             pressedKeys += (1 << KeyMapping::W);
@@ -17,3 +19,7 @@ class GlobalState {
             return pressedKeys & (1 << KeyMapping::W);
         } 
 };
+
+extern GlobalState globalState;
+
+#endif

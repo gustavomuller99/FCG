@@ -6,11 +6,14 @@
 class SceneObject {
 
     public:
-        virtual void draw() = 0;
-
-    private:
         virtual GLuint buildTriangles() = 0;
-        
+        virtual GLuint getRenderingMode() = 0;
+        virtual void* getFirstIndex() = 0;
+        virtual GLuint getIndexesNum() = 0;
+        virtual float getLineWidth() {
+            return 1.0f;
+        };
+    private:
 };
 
 #endif
