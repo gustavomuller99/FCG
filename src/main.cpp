@@ -89,10 +89,13 @@ int main()
     printf("GPU: %s, %s, OpenGL %s, GLSL %s\n", vendor, renderer, glversion, glslversion);
 
     LoadShadersFromFiles();
+    LoadTextureImage("../../data/terrain_texture.jpg"); //TextureImage0
 
     glEnable(GL_DEPTH_TEST);
 
-    LoadTextureImage("../../data/terrain_texture.jpg"); //TextureImage0
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
 
     // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela
     while (!glfwWindowShouldClose(window))
@@ -192,6 +195,9 @@ void LoadShadersFromFiles()
         glDeleteProgram(globalState.g_GpuProgramID);
 
     globalState.g_GpuProgramID = CreateGpuProgram(vertex_shader_id, fragment_shader_id);
+    glUseProgram(globalState.g_GpuProgramID);
+    glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "TextureImage0"), 0);
+    glUseProgram(0);
 }
 
 GLuint CreateGpuProgram(GLuint vertex_shader_id, GLuint fragment_shader_id)
@@ -320,12 +326,13 @@ void LoadTextureImage(const char* filename)
     glGenSamplers(1, &sampler_id);
 
     // Veja slides 95-96 do documento Aula_20_Mapeamento_de_Texturas.pdf
-    glSamplerParameteri(sampler_id, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glSamplerParameteri(sampler_id, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glSamplerParameteri(sampler_id, GL_TEXTURE_WRAP_S,  GL_CLAMP_TO_BORDER);
+    glSamplerParameteri(sampler_id, GL_TEXTURE_WRAP_T,  GL_CLAMP_TO_BORDER);
 
     // Parâmetros de amostragem da textura.
     glSamplerParameteri(sampler_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glSamplerParameteri(sampler_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glSamplerParameteri(sampler_id, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
 
     // Agora enviamos a imagem lida do disco para a GPU
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

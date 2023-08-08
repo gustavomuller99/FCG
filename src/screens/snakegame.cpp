@@ -15,14 +15,15 @@ void SnakeGame::updateScreenFrame() {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    glUseProgram(globalState.g_GpuProgramID);
+
     GLint model_uniform           = glGetUniformLocation(globalState.g_GpuProgramID, "model");
     GLint view_uniform            = glGetUniformLocation(globalState.g_GpuProgramID, "view");
     GLint projection_uniform      = glGetUniformLocation(globalState.g_GpuProgramID, "projection");
+    GLint object_id               = glGetUniformLocation(globalState.g_GpuProgramID, "object_id");
     GLint render_as_black_uniform = glGetUniformLocation(globalState.g_GpuProgramID, "render_as_black");
-    GLint bbox_min_uniform = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_min");
-    GLint bbox_max_uniform   = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_max");
-
-    glUseProgram(globalState.g_GpuProgramID);
+    GLint bbox_min_uniform        = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_min");
+    GLint bbox_max_uniform        = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_max");
 
     /* if modo dev */
     updateFreeCamera();
@@ -35,22 +36,20 @@ void SnakeGame::updateScreenFrame() {
     glUniformMatrix4fv(view_uniform       , 1 , GL_FALSE , glm::value_ptr(view));
     glUniformMatrix4fv(projection_uniform , 1 , GL_FALSE , glm::value_ptr(projection));
 
-    glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "TextureImage0"), 0);
+    glUniform1i(object_id, TERRAIN);
+    draw(terrain,  Matrix_Identity() * Matrix_Scale(10.0f, 1.0f, 10.0f), model_uniform, bbox_min_uniform, bbox_max_uniform);
 
-    glUniform1i(TERRAIN, false);
-    draw(terrain,  Matrix_Identity()*Matrix_Scale(10.0f, 1.0f, 10.0f), model_uniform, bbox_min_uniform, bbox_max_uniform);
-
-    glUniform1i(AXIS, false);
+    glUniform1i(object_id, AXIS);
     draw(axis, Matrix_Identity(), model_uniform, bbox_min_uniform, bbox_max_uniform);
 
     //draw(snake, Matrix_Identity(), model_uniform);
 }
 
 void SnakeGame::draw(std::unique_ptr<SceneObject> &object, glm::mat4 model, GLint model_uniform, GLint bbox_min_uniform, GLint bbox_max_uniform) {
+    glUniformMatrix4fv(model_uniform, 1, GL_FALSE, glm::value_ptr(model));
+
     GLuint vertex_array_object_id = object->buildTriangles();
     glBindVertexArray(vertex_array_object_id);
-
-    glUniformMatrix4fv(model_uniform, 1, GL_FALSE, glm::value_ptr(model));
 
     glm::vec3 bbox_min = object->getBBox_min();
     glm::vec3 bbox_max = object->getBBox_max();
