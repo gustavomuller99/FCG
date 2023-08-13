@@ -22,6 +22,7 @@ uniform mat4 projection;
 #define TERRAIN 0
 #define AXIS  1
 #define SNAKE  2
+#define WALL 3
 uniform int object_id;
 
 // Parâmetros da axis-aligned bounding box (AABB) do modelo
@@ -29,9 +30,9 @@ uniform vec4 bbox_min;
 uniform vec4 bbox_max;
 
 // Variáveis para acesso das imagens de textura
-uniform sampler2D TextureImage0;
-uniform sampler2D TextureImage1;
-uniform sampler2D TextureImage2;
+uniform sampler2D TextureImage0; //TERRAIN
+uniform sampler2D TextureImage1; //WALL TEXTURE
+
 
 // O valor de saída ("out") de um Fragment Shader é a cor final do fragmento.
 out vec4 color;
@@ -111,7 +112,7 @@ void main()
         U = 0.0;
         V = 0.0;
     }
-    else if ( object_id == TERRAIN )
+    else if ( object_id == TERRAIN || object_id == WALL )
     {
         // Coordenadas de textura do plano, obtidas do arquivo OBJ.
         U = texcoords.x;
@@ -120,11 +121,19 @@ void main()
 
     // Obtemos a refletância difusa a partir da leitura da imagem TextureImage0
     vec3 Kd0 = texture(TextureImage0, vec2(U,V)).rgb;
+    vec3 Kd1 = texture(TextureImage1, vec2(U, V)).rgb;
 
     // Equação de Iluminação
     float lambert = max(0,dot(n,l));
 
-    color.rgb = Kd0 * (lambert + 0.01);
+    if( object_id == TERRAIN) {
+        color.rgb = Kd0 * (lambert + 0.01);
+    } else if(object_id == WALL) {
+        color.rgb = Kd1 * (lambert + 0.01);
+    } else {
+        color.rgb = vec3(0.2,0.2,0.2);
+    }
+
 
     // NOTE: Se você quiser fazer o rendering de objetos transparentes, é
     // necessário:

@@ -373,6 +373,7 @@
 		<Unit filename="include/models/axis.h" />
 		<Unit filename="include/models/snake.h" />
 		<Unit filename="include/models/terrain.h" />
+		<Unit filename="include/models/wall.h" />
 		<Unit filename="include/screens/snakegame.h" />
 		<Unit filename="include/stb_image.h" />
 		<Unit filename="include/tiny_obj_loader.h" />
@@ -387,6 +388,7 @@
 		<Unit filename="src/models/axis.cpp" />
 		<Unit filename="src/models/snake.cpp" />
 		<Unit filename="src/models/terrain.cpp" />
+		<Unit filename="src/models/wall.cpp" />
 		<Unit filename="src/screens/snakegame.cpp" />
 		<Unit filename="src/shaders/shader_fragment.glsl" />
 		<Unit filename="src/shaders/shader_vertex.glsl" />

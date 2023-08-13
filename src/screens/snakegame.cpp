@@ -1,18 +1,23 @@
 #include <screens/snakegame.h>
 #include <matrices.h>
+#include <math.h>
 
 #define TERRAIN 0
 #define AXIS  1
 #define SNAKE  2
+#define WALL 3
+
+#define MAP_SIZE 10
 
 SnakeGame::SnakeGame() {
     snake = std::make_unique<Snake>(Snake());
     axis = std::make_unique<Axis>(Axis());
     terrain = std::make_unique<Terrain>(Terrain());
+    wall = std::make_unique<Wall>(Wall());
 }
 
 void SnakeGame::updateScreenFrame() {
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(0.65f, 0.92f, 0.95f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glUseProgram(globalState.g_GpuProgramID);
@@ -37,7 +42,24 @@ void SnakeGame::updateScreenFrame() {
     glUniformMatrix4fv(projection_uniform , 1 , GL_FALSE , glm::value_ptr(projection));
 
     glUniform1i(object_id, TERRAIN);
-    draw(terrain,  Matrix_Identity() * Matrix_Scale(10.0f, 1.0f, 10.0f), model_uniform, bbox_min_uniform, bbox_max_uniform);
+    draw(terrain,  Matrix_Identity() * Matrix_Scale(MAP_SIZE, 1.0f, MAP_SIZE), model_uniform, bbox_min_uniform, bbox_max_uniform);
+
+    glUniform1i(object_id, WALL);
+    //LADO 1
+    draw(wall, Matrix_Identity()*Matrix_Translate(MAP_SIZE, 0.0f, MAP_SIZE/1.65)*Matrix_Scale(0.5f, 0.5f, 0.6f), model_uniform, bbox_min_uniform, bbox_max_uniform);
+    draw(wall, Matrix_Identity()*Matrix_Translate(MAP_SIZE, 0.0f, -MAP_SIZE/2.45)*Matrix_Scale(0.5f, 0.5f, 0.6f), model_uniform, bbox_min_uniform, bbox_max_uniform);
+
+    //LADO 2
+    draw(wall, Matrix_Identity()*Matrix_Translate(-MAP_SIZE, 0.0f, MAP_SIZE/1.65)*Matrix_Scale(0.5f, 0.5f, 0.6f), model_uniform, bbox_min_uniform, bbox_max_uniform);
+    draw(wall, Matrix_Identity()*Matrix_Translate(-MAP_SIZE, 0.0f, -MAP_SIZE/2.45)*Matrix_Scale(0.5f, 0.5f, 0.6f), model_uniform, bbox_min_uniform, bbox_max_uniform);
+
+    //LADO 3
+    draw(wall, Matrix_Identity()*Matrix_Rotate_Y(M_PI/2)*Matrix_Translate(MAP_SIZE, 0.0f, MAP_SIZE/1.65)*Matrix_Scale(0.5f, 0.5f, 0.6f), model_uniform, bbox_min_uniform, bbox_max_uniform);
+    draw(wall, Matrix_Identity()*Matrix_Rotate_Y(M_PI/2)*Matrix_Translate(MAP_SIZE, 0.0f, -MAP_SIZE/2.45)*Matrix_Scale(0.5f, 0.5f, 0.6f), model_uniform, bbox_min_uniform, bbox_max_uniform);
+
+    //LADO 4
+    draw(wall, Matrix_Identity()*Matrix_Rotate_Y(M_PI/2)*Matrix_Translate(-MAP_SIZE, 0.0f, MAP_SIZE/1.65)*Matrix_Scale(0.5f, 0.5f, 0.6f), model_uniform, bbox_min_uniform, bbox_max_uniform);
+    draw(wall, Matrix_Identity()*Matrix_Rotate_Y(M_PI/2)*Matrix_Translate(-MAP_SIZE, 0.0f, -MAP_SIZE/2.45)*Matrix_Scale(0.5f, 0.5f, 0.6f), model_uniform, bbox_min_uniform, bbox_max_uniform);
 
     glUniform1i(object_id, AXIS);
     draw(axis, Matrix_Identity(), model_uniform, bbox_min_uniform, bbox_max_uniform);
