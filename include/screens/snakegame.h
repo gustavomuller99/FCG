@@ -26,6 +26,8 @@ class SnakeGame: public ProgramScreen {
         glm::vec4 camera_pos_c         = glm::vec4(2.0f, 2.5f, 2.5f, 1.0f);
         glm::vec4 camera_front         = glm::vec4(0.0f, 0.0f,  0.0f, 0.0f);
         glm::vec4 camera_up_vector     = glm::vec4(0.0f, 1.0f,  0.0f, 0.0f);
+        int game_mode = GameMode::Dev;
+        bool should_switch_game = true;
 
         /* CAMERA LIVRE PARA MODO DEV */
         float g_camera_theta = - PI / 4; // Ângulo no plano ZX em relação ao eixo Z
@@ -36,6 +38,10 @@ class SnakeGame: public ProgramScreen {
         const float camera_speed = 2.5f;
         void updateFreeCamera();
         void updateMovDirVector();
+        /* -------------------------- */
+
+        /* CAMERA JOGO */
+        void updateGameCamera();
         /* -------------------------- */
 
         float nearplane = -0.1f;

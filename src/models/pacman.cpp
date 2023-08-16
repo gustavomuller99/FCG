@@ -8,9 +8,9 @@ GLuint Pacman::buildTriangles() {
 
     //printf("%f\n", angleInc);
     float phi = -M_PI / 2;
-    for (int i = 0; i < points; i++, phi += angleInc) {
+    for (int i = 0; i < points; i++, phi += angle_inc) {
         float theta = -M_PI;
-        for (int j = 0; j < points; j++, theta += angleInc) {
+        for (int j = 0; j < points; j++, theta += angle_inc) {
             //printf("%f %f\n", 360 * theta / (2 * M_PI), 360 * phi / (2 * M_PI));
             float x = radius * sin(phi) * cos(theta);
             float y = radius * sin(phi) * sin(theta);
@@ -92,9 +92,38 @@ GLuint Pacman::getIndexesNum() {
     return 2 * points * points;
 }
 
-glm::vec3 Pacman::getPos() {
+glm::vec4 Pacman::getPos() {
     return pos;
 }
 
+glm::vec4 Pacman::getDir() {
+    return dir;
+}
+
+void Pacman::update() {
+    if (globalState.getAPressed()) {
+        pos_theta += -tilt;
+    }
+
+    if (globalState.getDPressed()) {
+        pos_theta += tilt;
+    }
+
+    float z = sin(pos_theta);
+    float x = cos(pos_theta);
+
+    dir = glm::vec4(x, 0.0, z, 0.0);
+
+    float current_frame = glfwGetTime();
+    float delta_time = current_frame - last_frame;
+    last_frame = current_frame;
+    float cur_speed = speed * delta_time;
+
+    pos += dir * cur_speed;
+}
+
+void Pacman::reset() {
+    last_frame = glfwGetTime();
+}
 
 

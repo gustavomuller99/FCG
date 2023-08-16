@@ -2070,7 +2070,7 @@
 	<inttypes.h>
 	<stdint.h>
 
-1692156345 source:d:\fcg\src\main.cpp
+1692169417 source:d:\fcg\src\main.cpp
 	<cmath>
 	<cstdio>
 	<cstdlib>
@@ -2107,7 +2107,7 @@
 	<GL/glext.h>
 	<GL/glu.h>
 
-1692157186 d:\fcg\include\screens\snakegame.h
+1692170251 d:\fcg\include\screens\snakegame.h
 	<interfaces/programScreen.h>
 	<models/pacman.h>
 	<models/axis.h>
@@ -2752,10 +2752,11 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1692163499 d:\fcg\include\interfaces\sceneobject.h
+1692170055 d:\fcg\include\interfaces\sceneobject.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<glm/vec3.hpp>
+	<glm/vec4.hpp>
 
 1692156294 d:\fcg\include\models\snake.h
 	<interfaces/sceneObject.h>
@@ -2956,7 +2957,7 @@
 1692156345 d:\fcg\include\glm\gtc\type_ptr.inl
 	<cstring>
 
-1692156294 d:\fcg\include\utils\utils.h
+1692166919 d:\fcg\include\utils\utils.h
 	<cstdio>
 
 1692156345 d:\fcg\include\models\axis.h
@@ -3008,7 +3009,7 @@
 	<utils/models.h>
 	<glm/vec3.hpp>
 
-1692156294 d:\fcg\include\utils\globalstate.h
+1692168758 d:\fcg\include\utils\globalstate.h
 	<glad/glad.h>
 	<utils/utils.h>
 	<memory>
@@ -3054,7 +3055,7 @@
 	<models/wall.h>
 	<utils/models.h>
 
-1692163981 source:d:\fcg\src\screens\snakegame.cpp
+1692170642 source:d:\fcg\src\screens\snakegame.cpp
 	<screens/snakegame.h>
 	<matrices.h>
 	<math.h>
@@ -3097,13 +3098,14 @@
 	<utils/matrices.h>
 	<utils/models.h>
 
-1692165050 d:\fcg\include\models\pacman.h
+1692171076 d:\fcg\include\models\pacman.h
 	<interfaces/sceneObject.h>
 	<glm/mat4x4.hpp>
 	<glm/vec4.hpp>
+	<utils/globalState.h>
 	<glm/gtc/type_ptr.hpp>
 	<utils/utils.h>
 
-1692165022 source:d:\fcg\src\models\pacman.cpp
+1692171107 source:d:\fcg\src\models\pacman.cpp
 	<models/pacman.h>
 

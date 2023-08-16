@@ -295,6 +295,12 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mod)
     } else if (key == GLFW_KEY_D && action == GLFW_RELEASE) {
         globalState.setDPressed(false);
     }
+
+    if (key == GLFW_KEY_M && action == GLFW_PRESS) {
+        globalState.setMPressed(true);
+    } else if (key == GLFW_KEY_M && action == GLFW_RELEASE) {
+        globalState.setMPressed(false);
+    }
 }
 
 void ErrorCallback(int error, const char* description)

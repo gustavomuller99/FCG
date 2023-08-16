@@ -30,9 +30,34 @@ void SnakeGame::updateScreenFrame() {
     GLint bbox_min_uniform        = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_min");
     GLint bbox_max_uniform        = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_max");
 
-    /* if modo dev */
-    updateFreeCamera();
-    /* else fixado no pacman */
+    if (globalState.getMPressed() && should_switch_game) {
+        should_switch_game = false;
+        switch (game_mode) {
+            case GameMode::Dev:
+                game_mode = GameMode::Running;
+                break;
+            default:
+                game_mode = GameMode::Dev;
+                break;
+        }
+    } else if (!globalState.getMPressed()) {
+        should_switch_game = true;
+    }
+
+    if (game_mode == GameMode::Dev) {
+        /* reset all in game elements */
+        pacman->reset();
+
+        updateFreeCamera();
+    } else {
+        /* update all in game elements */
+        pacman->update();
+        /* reward[i]->update() */
+
+        /* check for collisions */
+
+        updateGameCamera();
+    }
 
     glm::vec4 camera_view_vector = camera_front;
     glm::mat4 projection = Matrix_Perspective(field_of_view, globalState.g_ScreenRatio, nearplane, farplane);
@@ -180,4 +205,12 @@ void SnakeGame::updateMovDirVector() {
         glm::vec4 dir = crossproduct(camera_front, camera_up_vector);
         mov_direction_vector += (dir / norm(dir));
     }
+}
+
+void SnakeGame::updateGameCamera() {
+    camera_front = pacman->getDir();
+    camera_front[1] = - M_PI / 4;
+
+    camera_pos_c = pacman->getPos() - pacman->getDir() - pacman->getDir();
+    camera_pos_c[1] = 1.75f;
 }

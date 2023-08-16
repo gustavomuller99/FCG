@@ -4,6 +4,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+
 
 class SceneObject {
 
@@ -12,6 +14,8 @@ class SceneObject {
         virtual GLuint getRenderingMode() = 0;
         virtual void* getFirstIndex() = 0;
         virtual GLuint getIndexesNum() = 0;
+        virtual void update() { };
+        virtual void reset() { };
         virtual float getLineWidth() {
             return 1.0f;
         };
@@ -21,8 +25,11 @@ class SceneObject {
         virtual glm::vec3 getBBox_max() {
             return glm::vec3(0.0f, 0.0f, 0.0f);
         };
-        virtual glm::vec3 getPos() {
-            return glm::vec3(0.0f, 0.0f, 0.0f);
+        virtual glm::vec4 getPos() {
+            return glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+        };
+        virtual glm::vec4 getDir() {
+            return glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
         };
     private:
 };
