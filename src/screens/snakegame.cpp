@@ -4,7 +4,7 @@
 
 #define TERRAIN 0
 #define AXIS  1
-#define SNAKE  2
+#define PACMAN  2
 #define WALL 3
 
 #define MAP_SIZE 10
@@ -121,6 +121,7 @@ void SnakeGame::updateScreenFrame() {
     glUniform1i(object_id, AXIS);
     draw(axis, Matrix_Identity(), model_uniform, bbox_min_uniform, bbox_max_uniform);
 
+    glUniform1i(object_id, PACMAN);
     draw(pacman, Matrix_Translate(pacman->getPos()[0], pacman->getPos()[1], pacman->getPos()[2]), model_uniform, bbox_min_uniform, bbox_max_uniform);
 }
 

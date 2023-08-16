@@ -89,8 +89,10 @@ int main()
     printf("GPU: %s, %s, OpenGL %s, GLSL %s\n", vendor, renderer, glversion, glslversion);
 
     LoadShadersFromFiles();
-    LoadTextureImage("../../data/terrain_texture.jpg"); //TextureImage0
-    LoadTextureImage("../../data/wall_texture.png"); //TextureImage1
+
+    LoadTextureImage("../../data/terrain_texture.jpg");
+    LoadTextureImage("../../data/wall_texture.png");
+    LoadTextureImage("../../data/pacman.jpg");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -197,8 +199,9 @@ void LoadShadersFromFiles()
 
     globalState.g_GpuProgramID = CreateGpuProgram(vertex_shader_id, fragment_shader_id);
     glUseProgram(globalState.g_GpuProgramID);
-    glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "TextureImage0"), 0);
-    glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "TextureImage1"), 1);
+    glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Terrain"), 0);
+    glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Wall"), 1);
+    glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Pacman"), 2);
     glUseProgram(0);
 }
 

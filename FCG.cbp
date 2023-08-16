@@ -371,7 +371,7 @@
 		<Unit filename="include/interfaces/sceneObject.h" />
 		<Unit filename="include/matrices.h" />
 		<Unit filename="include/models/axis.h" />
-		<Unit filename="include/models/snake.h" />
+		<Unit filename="include/models/pacman.h" />
 		<Unit filename="include/models/terrain.h" />
 		<Unit filename="include/models/wall.h" />
 		<Unit filename="include/screens/snakegame.h" />
@@ -386,7 +386,7 @@
 		</Unit>
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/models/axis.cpp" />
-		<Unit filename="src/models/snake.cpp" />
+		<Unit filename="src/models/pacman.cpp" />
 		<Unit filename="src/models/terrain.cpp" />
 		<Unit filename="src/models/wall.cpp" />
 		<Unit filename="src/screens/snakegame.cpp" />

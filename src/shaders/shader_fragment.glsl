@@ -16,15 +16,16 @@ uniform mat4 projection;
 
 #define TERRAIN 0
 #define AXIS  1
-#define SNAKE  2
+#define PACMAN  2
 #define WALL 3
 uniform int object_id;
 
 uniform vec4 bbox_min;
 uniform vec4 bbox_max;
 
-uniform sampler2D TextureImage0; //TERRAIN
-uniform sampler2D TextureImage1; //WALL TEXTURE
+uniform sampler2D Terrain; //TERRAIN
+uniform sampler2D Wall; //WALL TEXTURE
+uniform sampler2D Pacman; //WALL TEXTURE
 
 out vec4 color;
 
@@ -48,23 +49,41 @@ void main()
     float U = 0.0;
     float V = 0.0;
 
-    if (object_id == TERRAIN || object_id == WALL) {
-        U = texcoords.x;
-        V = texcoords.y;
-    }
+    vec3 Kd0 = vec3(0.2, 0.2, 0.2);
 
-    vec3 Kd0 = texture(TextureImage0, vec2(U,V)).rgb;
-    vec3 Kd1 = texture(TextureImage1, vec2(U, V)).rgb;
+    switch(object_id) {
+        case TERRAIN:
+            U = texcoords.x;
+            V = texcoords.y;
+            Kd0 = texture(Terrain, vec2(U,V)).rgb;
+            break;
+        case WALL:
+            U = texcoords.x;
+            V = texcoords.y;
+            Kd0 = texture(Wall, vec2(U,V)).rgb;
+            break;
+        case PACMAN:
+            vec4 bbox_center = (bbox_min + bbox_max) / 2.0;
+
+            float r = 1.0;
+            vec4 p_texture =
+                bbox_center +
+                r * normalize(position_model - bbox_center);
+            vec4 p_c = p_texture - bbox_center;
+
+            float theta = atan(p_c[0], p_c[2]);
+            float phi = asin(p_c[1] / r);
+
+            U = (theta + M_PI) / (2 * M_PI);
+            V = (phi + M_PI / 2) / M_PI;
+            Kd0 = texture(Pacman, vec2(U,V)).rgb + vec3(.8f, .8f, 0.0f);
+            break;
+        default:
+            break;
+    }
 
     float lambert = max(0,dot(n,l));
-
-    if( object_id == TERRAIN) {
-        color.rgb = Kd0 * (lambert + 0.01);
-    } else if(object_id == WALL) {
-        color.rgb = Kd1 * (lambert + 0.01);
-    } else {
-        color.rgb = vec3(0.2, 0.2, 0.2);
-    }
+    color.rgb = Kd0 * (lambert + 0.01);
 
     color.a = 1;
     color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);
