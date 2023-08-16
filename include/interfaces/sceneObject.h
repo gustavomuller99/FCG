@@ -21,6 +21,9 @@ class SceneObject {
         virtual glm::vec3 getBBox_max() {
             return glm::vec3(0.0f, 0.0f, 0.0f);
         };
+        virtual glm::vec3 getPos() {
+            return glm::vec3(0.0f, 0.0f, 0.0f);
+        };
     private:
 };
 

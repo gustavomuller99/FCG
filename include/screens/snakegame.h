@@ -2,7 +2,7 @@
 #define _SNAKEGAME_H
 
 #include <interfaces/programScreen.h>
-#include <models/snake.h>
+#include <models/pacman.h>
 #include <models/axis.h>
 #include <models/terrain.h>
 #include <models/wall.h>
@@ -19,7 +19,7 @@ class SnakeGame: public ProgramScreen {
         SnakeGame();
         void updateScreenFrame() override;
     private:
-        std::unique_ptr<SceneObject> snake;
+        std::unique_ptr<SceneObject> pacman;
         std::unique_ptr<SceneObject> axis;
         std::unique_ptr<SceneObject> terrain;
         std::unique_ptr<SceneObject> wall;
