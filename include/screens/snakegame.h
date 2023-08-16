@@ -6,10 +6,12 @@
 #include <models/axis.h>
 #include <models/terrain.h>
 #include <models/wall.h>
+#include <models/cube.h>
 #include <utils/globalState.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <matrices.h>
+#include <vector>
 
 class SnakeGame: public ProgramScreen {
 
@@ -19,10 +21,13 @@ class SnakeGame: public ProgramScreen {
         SnakeGame();
         void updateScreenFrame() override;
     private:
+        static const int n_obs = 2;
+
         std::unique_ptr<SceneObject> pacman;
         std::unique_ptr<SceneObject> axis;
         std::unique_ptr<SceneObject> terrain;
         std::unique_ptr<SceneObject> wall;
+        std::unique_ptr<SceneObject> obsctacules[n_obs];
         glm::vec4 camera_pos_c         = glm::vec4(2.0f, 2.5f, 2.5f, 1.0f);
         glm::vec4 camera_front         = glm::vec4(0.0f, 0.0f,  0.0f, 0.0f);
         glm::vec4 camera_up_vector     = glm::vec4(0.0f, 1.0f,  0.0f, 0.0f);

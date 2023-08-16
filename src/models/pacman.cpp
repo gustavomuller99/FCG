@@ -6,12 +6,10 @@ GLuint Pacman::buildTriangles() {
     float color_coefficients[points * points * 4];
     GLuint indices[2 * points * points];
 
-    //printf("%f\n", angleInc);
     float phi = -M_PI / 2;
     for (int i = 0; i < points; i++, phi += angle_inc) {
         float theta = -M_PI;
         for (int j = 0; j < points; j++, theta += angle_inc) {
-            //printf("%f %f\n", 360 * theta / (2 * M_PI), 360 * phi / (2 * M_PI));
             float x = radius * sin(phi) * cos(theta);
             float y = radius * sin(phi) * sin(theta);
             float z = radius * cos(phi);
@@ -27,16 +25,6 @@ GLuint Pacman::buildTriangles() {
             color_coefficients[i * points * 4 + j * 4 + 3] = 1.0;
         }
     }
-
-    /*for (int i = 0; i < points; i++) {
-        for (int j = 0; j < points; j++) {
-            printf("%f %f %f %f\n",
-                   model_coefficients[i * points * 4 + j * 4 + 0],
-                   model_coefficients[i * points * 4 + j * 4 + 1],
-                   model_coefficients[i * points * 4 + j * 4 + 2],
-                   model_coefficients[i * points * 4 + j * 4 + 3]);
-        }
-    }*/
 
     GLuint VBO_model_coefficients_id;
     glGenBuffers(1, &VBO_model_coefficients_id);

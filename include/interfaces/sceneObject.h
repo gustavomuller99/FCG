@@ -31,6 +31,7 @@ class SceneObject {
         virtual glm::vec4 getDir() {
             return glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
         };
+        ~SceneObject() = default;
     private:
 };
 

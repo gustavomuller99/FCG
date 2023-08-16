@@ -14,6 +14,9 @@ SnakeGame::SnakeGame() {
     axis = std::make_unique<Axis>(Axis());
     terrain = std::make_unique<Terrain>(Terrain());
     wall = std::make_unique<Wall>(Wall());
+    for (int i = 0; i < n_obs; i++) {
+        obsctacules[i] = std::make_unique<Cube>(Cube());
+    }
 }
 
 void SnakeGame::updateScreenFrame() {
@@ -49,6 +52,9 @@ void SnakeGame::updateScreenFrame() {
         pacman->reset();
 
         updateFreeCamera();
+
+        glUniform1i(object_id, AXIS);
+        draw(axis, Matrix_Identity(), model_uniform, bbox_min_uniform, bbox_max_uniform);
     } else {
         /* update all in game elements */
         pacman->update();
@@ -118,8 +124,14 @@ void SnakeGame::updateScreenFrame() {
          bbox_min_uniform,
          bbox_max_uniform);
 
-    glUniform1i(object_id, AXIS);
-    draw(axis, Matrix_Identity(), model_uniform, bbox_min_uniform, bbox_max_uniform);
+    for (int i = 0; i < n_obs; i++) {
+        /* add random/static positioning */
+        draw(obsctacules[i],
+             Matrix_Translate(i + 1.5f, 0.0f, i + 1.5f),
+             model_uniform,
+             bbox_min_uniform,
+             bbox_max_uniform);
+    }
 
     glUniform1i(object_id, PACMAN);
     draw(pacman, Matrix_Translate(pacman->getPos()[0], pacman->getPos()[1], pacman->getPos()[2]), model_uniform, bbox_min_uniform, bbox_max_uniform);

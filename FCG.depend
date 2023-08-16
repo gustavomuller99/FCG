@@ -2107,16 +2107,18 @@
 	<GL/glext.h>
 	<GL/glu.h>
 
-1692170251 d:\fcg\include\screens\snakegame.h
+1692223591 d:\fcg\include\screens\snakegame.h
 	<interfaces/programScreen.h>
 	<models/pacman.h>
 	<models/axis.h>
 	<models/terrain.h>
 	<models/wall.h>
+	<models/cube.h>
 	<utils/globalState.h>
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<matrices.h>
+	<vector>
 
 1692156345 d:\fcg\include\interfaces\programscreen.h
 	<utils/matrices.h>
@@ -2752,7 +2754,7 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1692170055 d:\fcg\include\interfaces\sceneobject.h
+1692222486 d:\fcg\include\interfaces\sceneobject.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<glm/vec3.hpp>
@@ -3055,7 +3057,7 @@
 	<models/wall.h>
 	<utils/models.h>
 
-1692217980 source:d:\fcg\src\screens\snakegame.cpp
+1692223753 source:d:\fcg\src\screens\snakegame.cpp
 	<screens/snakegame.h>
 	<matrices.h>
 	<math.h>
@@ -3106,6 +3108,16 @@
 	<glm/gtc/type_ptr.hpp>
 	<utils/utils.h>
 
-1692171107 source:d:\fcg\src\models\pacman.cpp
+1692223867 source:d:\fcg\src\models\pacman.cpp
 	<models/pacman.h>
+
+1692223315 source:d:\fcg\src\models\cube.cpp
+	<models/cube.h>
+
+1692221469 d:\fcg\include\models\cube.h
+	<interfaces/sceneObject.h>
+	<glm/mat4x4.hpp>
+	<glm/vec4.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<utils/utils.h>
 
