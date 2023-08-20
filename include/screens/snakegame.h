@@ -21,7 +21,7 @@ class SnakeGame: public ProgramScreen {
         SnakeGame();
         void updateScreenFrame() override;
     private:
-        static const int n_obs = 2;
+        static const int n_obs = 150;
 
         std::unique_ptr<SceneObject> pacman;
         std::unique_ptr<SceneObject> axis;

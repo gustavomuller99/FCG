@@ -16,7 +16,7 @@ class Cube: public SceneObject {
         float getLineWidth() override;
 
     private:
-        GLfloat radius = 0.25;
+        GLfloat radius = 0.4;
 };
 
 #endif

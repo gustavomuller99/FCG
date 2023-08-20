@@ -18,14 +18,16 @@ uniform mat4 projection;
 #define AXIS  1
 #define PACMAN  2
 #define WALL 3
+#define CUBE 4
 uniform int object_id;
 
 uniform vec4 bbox_min;
 uniform vec4 bbox_max;
 
-uniform sampler2D Terrain; //TERRAIN
-uniform sampler2D Wall; //WALL TEXTURE
-uniform sampler2D Pacman; //WALL TEXTURE
+uniform sampler2D Terrain;
+uniform sampler2D Wall;
+uniform sampler2D Pacman;
+uniform sampler2D Cube;
 
 out vec4 color;
 
@@ -77,6 +79,21 @@ void main()
             U = (theta + M_PI) / (2 * M_PI);
             V = (phi + M_PI / 2) / M_PI;
             Kd0 = texture(Pacman, vec2(U,V)).rgb + vec3(.8f, .8f, 0.0f);
+            break;
+        case CUBE:
+            float minx = bbox_min.x;
+            float maxx = bbox_max.x;
+
+            float miny = bbox_min.y;
+            float maxy = bbox_max.y;
+
+            float minz = bbox_min.z;
+            float maxz = bbox_max.z;
+
+            U = (position_model.x - minx) / (maxx - minx);
+            V = (position_model.y - miny) / (maxy - miny);
+
+            Kd0 = texture(Cube, vec2(U,V)).rgb;
             break;
         default:
             break;
