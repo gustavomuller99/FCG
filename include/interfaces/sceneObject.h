@@ -16,6 +16,7 @@ class SceneObject {
         virtual GLuint getIndexesNum() = 0;
         virtual void update() { };
         virtual void reset() { };
+        virtual void setInitialPos(glm::vec4 initialPos) { };
         virtual float getLineWidth() {
             return 1.0f;
         };

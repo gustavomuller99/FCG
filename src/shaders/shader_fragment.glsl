@@ -19,6 +19,8 @@ uniform mat4 projection;
 #define PACMAN  2
 #define WALL 3
 #define CUBE 4
+#define GHOST 5
+
 uniform int object_id;
 
 uniform vec4 bbox_min;
@@ -27,6 +29,7 @@ uniform vec4 bbox_max;
 uniform sampler2D Terrain;
 uniform sampler2D Wall;
 uniform sampler2D Pacman;
+uniform sampler2D Ghost;
 
 out vec4 color;
 
@@ -62,6 +65,11 @@ void main()
             U = texcoords.x;
             V = texcoords.y;
             Kd0 = texture(Wall, vec2(U,V)).rgb;
+            break;
+        case GHOST:
+            U = texcoords.x;
+            V = texcoords.y;
+            Kd0 = texture(Ghost, vec2(U,V)).rgb;
             break;
         case PACMAN:
             vec4 bbox_center = (bbox_min + bbox_max) / 2.0;

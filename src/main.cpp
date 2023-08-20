@@ -92,6 +92,7 @@ int main()
     LoadTextureImage("../../data/terrain_texture.jpg");
     LoadTextureImage("../../data/wall_texture.png");
     LoadTextureImage("../../data/pacman.jpg");
+    LoadTextureImage("../../data/ghost_texture.jpg");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -201,6 +202,7 @@ void LoadShadersFromFiles()
     glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Terrain"), 0);
     glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Wall"), 1);
     glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Pacman"), 2);
+    glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Ghost"), 3);
     glUseProgram(0);
 }
 
