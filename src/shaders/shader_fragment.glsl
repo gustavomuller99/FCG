@@ -27,7 +27,6 @@ uniform vec4 bbox_max;
 uniform sampler2D Terrain;
 uniform sampler2D Wall;
 uniform sampler2D Pacman;
-uniform sampler2D Cube;
 
 out vec4 color;
 
@@ -81,20 +80,6 @@ void main()
             Kd0 = texture(Pacman, vec2(U,V)).rgb + vec3(.8f, .8f, 0.0f);
             break;
         case CUBE:
-            float minx = bbox_min.x;
-            float maxx = bbox_max.x;
-
-            float miny = bbox_min.y;
-            float maxy = bbox_max.y;
-
-            float minz = bbox_min.z;
-            float maxz = bbox_max.z;
-
-            U = (position_model.x - minx) / (maxx - minx);
-            V = (position_model.y - miny) / (maxy - miny);
-
-            Kd0 = texture(Cube, vec2(U,V)).rgb;
-            break;
         default:
             break;
     }

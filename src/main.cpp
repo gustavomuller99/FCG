@@ -92,7 +92,6 @@ int main()
     LoadTextureImage("../../data/terrain_texture.jpg");
     LoadTextureImage("../../data/wall_texture.png");
     LoadTextureImage("../../data/pacman.jpg");
-    LoadTextureImage("../../data/cube_texture.jpg");
 
     glEnable(GL_DEPTH_TEST);
 
