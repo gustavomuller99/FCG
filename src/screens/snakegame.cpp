@@ -314,8 +314,8 @@ void SnakeGame::updateMovDirVector() {
 
 void SnakeGame::updateGameCamera() {
     camera_front = pacman->getDir();
-    camera_front[1] = - M_PI / 4;
+    camera_front[1] = - M_PI / 5;
 
     camera_pos_c = pacman->getPos() - pacman->getDir() - pacman->getDir();
-    camera_pos_c[1] = 1.75f;
+    camera_pos_c[1] = 2.00f;
 }

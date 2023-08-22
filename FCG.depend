@@ -2073,7 +2073,7 @@
 	<inttypes.h>
 	<stdint.h>
 
-1692219919 source:d:\fcg\src\main.cpp
+1692677730 source:d:\fcg\src\main.cpp
 	<cmath>
 	<cstdio>
 	<cstdlib>
@@ -2086,7 +2086,6 @@
 	<GLFW/glfw3.h>
 	<screens/snakegame.h>
 	<matrices.h>
-	<utils/texture.h>
 	<stb_image.h>
 
 1692156344 d:\fcg\include\glfw\glfw3.h
@@ -2110,13 +2109,14 @@
 	<GL/glext.h>
 	<GL/glu.h>
 
-1692223591 d:\fcg\include\screens\snakegame.h
+1692677730 d:\fcg\include\screens\snakegame.h
 	<interfaces/programScreen.h>
 	<models/pacman.h>
 	<models/axis.h>
 	<models/terrain.h>
 	<models/wall.h>
 	<models/cube.h>
+	<models/ghost.h>
 	<utils/globalState.h>
 	<glad/glad.h>
 	<GLFW/glfw3.h>
@@ -2757,7 +2757,7 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1692222486 d:\fcg\include\interfaces\sceneobject.h
+1692677942 d:\fcg\include\interfaces\sceneobject.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<glm/vec3.hpp>
@@ -2972,7 +2972,7 @@
 	<glm/gtc/type_ptr.hpp>
 	<utils/utils.h>
 
-1692156345 d:\fcg\include\models\terrain.h
+1692678127 d:\fcg\include\models\terrain.h
 	<interfaces/sceneObject.h>
 	<glm/mat4x4.hpp>
 	<glm/vec4.hpp>
@@ -3005,7 +3005,7 @@
 	<array>
 	"mapbox/earcut.hpp"
 
-1692156345 d:\fcg\include\models\wall.h
+1692678146 d:\fcg\include\models\wall.h
 	<interfaces/sceneObject.h>
 	<glm/mat4x4.hpp>
 	<glm/vec4.hpp>
@@ -3060,7 +3060,7 @@
 	<models/wall.h>
 	<utils/models.h>
 
-1692223753 source:d:\fcg\src\screens\snakegame.cpp
+1692677730 source:d:\fcg\src\screens\snakegame.cpp
 	<screens/snakegame.h>
 	<matrices.h>
 	<math.h>
@@ -3103,7 +3103,7 @@
 	<utils/matrices.h>
 	<utils/models.h>
 
-1692171076 d:\fcg\include\models\pacman.h
+1692677730 d:\fcg\include\models\pacman.h
 	<interfaces/sceneObject.h>
 	<glm/mat4x4.hpp>
 	<glm/vec4.hpp>
@@ -3114,10 +3114,10 @@
 1692223867 source:d:\fcg\src\models\pacman.cpp
 	<models/pacman.h>
 
-1692223315 source:d:\fcg\src\models\cube.cpp
+1692677730 source:d:\fcg\src\models\cube.cpp
 	<models/cube.h>
 
-1692221469 d:\fcg\include\models\cube.h
+1692677730 d:\fcg\include\models\cube.h
 	<interfaces/sceneObject.h>
 	<glm/mat4x4.hpp>
 	<glm/vec4.hpp>
@@ -3166,4 +3166,26 @@
 1692570677 source:c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\src\models\ghost.cpp
 	<models/ghost.h>
 	<utils/models.h>
+
+1692677997 d:\fcg\include\models\ghost.h
+	<interfaces/sceneObject.h>
+	<glm/mat4x4.hpp>
+	<glm/vec4.hpp>
+	<utils/globalState.h>
+	<glm/gtc/type_ptr.hpp>
+	<utils/utils.h>
+
+1692677730 source:d:\fcg\src\models\ghost.cpp
+	<models/ghost.h>
+	<utils/models.h>
+
+1692677730 source:d:\fcg\src\models\item.cpp
+	<models/item.h>
+
+1692677730 d:\fcg\include\models\item.h
+	<interfaces/sceneObject.h>
+	<glm/mat4x4.hpp>
+	<glm/vec4.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<utils/utils.h>
 

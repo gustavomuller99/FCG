@@ -3,19 +3,20 @@
 #include <utils/models.h>
 
 GLuint Wall::buildTriangles() {
-    if(!this->vertex_array_object_id) {
-        ObjModel wallmodel("../../data/wall.obj");
-        ComputeNormals(&wallmodel);
-        ObjectInfo object = BuildTrianglesAndAddToVirtualScene(&wallmodel);
-        this->vertex_array_object_id = object.vertex_array_object_id;
-        this->renderingMode = object.rendering_mode;
-        this->indexesNum = object.num_indices;
-        this->firstIndex = object.first_index;
-        this->bbox_min = object.bbox_min;
-        this->bbox_max = object.bbox_max;
-    }
+    if (vertex_array_object_id != -1)
+        return vertex_array_object_id;
 
-    return this->vertex_array_object_id;
+    ObjModel wallmodel("../../data/wall.obj");
+    ComputeNormals(&wallmodel);
+    ObjectInfo object = BuildTrianglesAndAddToVirtualScene(&wallmodel);
+    this->vertex_array_object_id = object.vertex_array_object_id;
+    this->renderingMode = object.rendering_mode;
+    this->indexesNum = object.num_indices;
+    this->firstIndex = object.first_index;
+    this->bbox_min = object.bbox_min;
+    this->bbox_max = object.bbox_max;
+
+    return vertex_array_object_id;
 }
 
 GLenum Wall::getRenderingMode() {

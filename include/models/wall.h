@@ -14,7 +14,6 @@ class Wall: public SceneObject {
         GLuint renderingMode;
         size_t firstIndex;
         GLuint indexesNum;
-        GLuint vertex_array_object_id;
         glm::vec3 bbox_min;
         glm::vec3 bbox_max;
     public:

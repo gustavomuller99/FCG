@@ -2,6 +2,9 @@
 
 GLuint Cube::buildTriangles() {
 
+    if (vertex_array_object_id != -1)
+        return vertex_array_object_id;
+
     float model_coefficients[8 * 4] = {
         -radius, 2 * radius,  radius, 1.0f,
         -radius, 0.0f,  radius, 1.0f,
@@ -26,7 +29,6 @@ GLuint Cube::buildTriangles() {
 
     GLuint VBO_model_coefficients_id;
     glGenBuffers(1, &VBO_model_coefficients_id);
-    GLuint vertex_array_object_id;
     glGenVertexArrays(1, &vertex_array_object_id);
     glBindVertexArray(vertex_array_object_id);
     glBindBuffer(GL_ARRAY_BUFFER, VBO_model_coefficients_id);
