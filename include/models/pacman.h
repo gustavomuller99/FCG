@@ -25,7 +25,7 @@ class Pacman : public SceneObject {
         GLfloat angle_inc = (2 * M_PI * (360 / points)) / 360;
 
         GLfloat speed = 1.0f;
-        GLfloat tilt = 0.02;
+        GLfloat tilt = 0.01f;
         GLfloat pos_theta = 0.0f;
         float last_frame = 0.0f;
         glm::vec4 dir = glm::vec4(1.0, 0.0, 0.0, 0.0);

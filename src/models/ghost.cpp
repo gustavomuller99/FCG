@@ -32,12 +32,12 @@ void Ghost::update() {
     this->last_frame = current_frame;
 
     if(!this->bChangeDirection) {
-        this->pos.x += 0.05f;
+        this->pos.x += 0.01f;
         if(this->pos.x >= MAP_SIZE - 1) {
             this->bChangeDirection = true;
         }
     } else {
-        this->pos.x -= 0.05f;
+        this->pos.x -= 0.01f;
         if(this->pos.x <= -MAP_SIZE + 2) {
             this->bChangeDirection = false;
         }
