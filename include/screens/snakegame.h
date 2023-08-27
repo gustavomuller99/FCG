@@ -8,6 +8,7 @@
 #include <models/wall.h>
 #include <models/cube.h>
 #include <models/ghost.h>
+#include <models/apple.h>
 #include <utils/globalState.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -31,6 +32,8 @@ class SnakeGame: public ProgramScreen {
         std::unique_ptr<SceneObject> obsctacles[n_obs];
         std::unique_ptr<SceneObject> ghost_0;
         std::unique_ptr<SceneObject> ghost_1;
+        std::unique_ptr<SceneObject> apple_0;
+        std::unique_ptr<SceneObject> apple_1;
         glm::vec4 camera_pos_c         = glm::vec4(2.0f, 2.5f, 2.5f, 1.0f);
         glm::vec4 camera_front         = glm::vec4(0.0f, 0.0f,  0.0f, 0.0f);
         glm::vec4 camera_up_vector     = glm::vec4(0.0f, 1.0f,  0.0f, 0.0f);

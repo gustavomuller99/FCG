@@ -11,7 +11,9 @@ enum KeyMapping {
     S = 2,
     D = 3,
     LeftMouse = 4,
-    M = 5
+    M = 5,
+    I = 6,
+    O = 7,
 };
 
 enum GameMode {

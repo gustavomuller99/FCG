@@ -17,6 +17,7 @@ class SceneObject {
         virtual void update() { };
         virtual void reset() { };
         virtual void setInitialPos(glm::vec4 initialPos) { };
+        virtual void getNewPosition(int xMin, int xMax, int zMin, int zMax) { };
         virtual float getLineWidth() {
             return 1.0f;
         };

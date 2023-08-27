@@ -1015,7 +1015,7 @@
 	<inttypes.h>
 	<stdint.h>
 
-1692563192 source:c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\src\main.cpp
+1693159818 source:c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\src\main.cpp
 	<cmath>
 	<cstdio>
 	<cstdlib>
@@ -1024,6 +1024,7 @@
 	<limits>
 	<fstream>
 	<sstream>
+	<time.h>
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<screens/snakegame.h>
@@ -1051,7 +1052,7 @@
 	<GL/glext.h>
 	<GL/glu.h>
 
-1692571247 c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\include\screens\snakegame.h
+1693153446 c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\include\screens\snakegame.h
 	<interfaces/programScreen.h>
 	<models/pacman.h>
 	<models/axis.h>
@@ -1059,6 +1060,7 @@
 	<models/wall.h>
 	<models/cube.h>
 	<models/ghost.h>
+	<models/apple.h>
 	<utils/globalState.h>
 	<glad/glad.h>
 	<GLFW/glfw3.h>
@@ -1699,7 +1701,7 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1693056151 c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\include\interfaces\sceneobject.h
+1693160524 c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\include\interfaces\sceneobject.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<glm/vec3.hpp>
@@ -1904,7 +1906,7 @@
 1691359709 c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\include\glm\gtc\type_ptr.inl
 	<cstring>
 
-1692238452 c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\include\utils\utils.h
+1693157296 c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\include\utils\utils.h
 	<cstdio>
 
 1691359711 c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\include\models\axis.h
@@ -1914,7 +1916,7 @@
 	<glm/gtc/type_ptr.hpp>
 	<utils/utils.h>
 
-1692238452 c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\include\utils\globalstate.h
+1693157683 c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\include\utils\globalstate.h
 	<glad/glad.h>
 	<utils/utils.h>
 	<memory>
@@ -1935,7 +1937,7 @@
 1691359712 source:c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\src\models\snake.cpp
 	<models/snake.h>
 
-1693056151 source:c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\src\screens\snakegame.cpp
+1693161227 source:c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\src\screens\snakegame.cpp
 	<screens/snakegame.h>
 	<matrices.h>
 	<math.h>
@@ -3186,6 +3188,18 @@
 	<interfaces/sceneObject.h>
 	<glm/mat4x4.hpp>
 	<glm/vec4.hpp>
+	<glm/gtc/type_ptr.hpp>
+	<utils/utils.h>
+
+1693161617 source:c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\src\models\apple.cpp
+	<models/apple.h>
+	<utils/models.h>
+
+1693160529 c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\include\models\apple.h
+	<interfaces/sceneObject.h>
+	<glm/mat4x4.hpp>
+	<glm/vec4.hpp>
+	<utils/globalState.h>
 	<glm/gtc/type_ptr.hpp>
 	<utils/utils.h>
 

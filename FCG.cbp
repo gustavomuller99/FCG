@@ -370,6 +370,7 @@
 		<Unit filename="include/interfaces/programScreen.h" />
 		<Unit filename="include/interfaces/sceneObject.h" />
 		<Unit filename="include/matrices.h" />
+		<Unit filename="include/models/apple.h" />
 		<Unit filename="include/models/axis.h" />
 		<Unit filename="include/models/cube.h" />
 		<Unit filename="include/models/ghost.h" />
@@ -388,6 +389,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/models/apple.cpp" />
 		<Unit filename="src/models/axis.cpp" />
 		<Unit filename="src/models/cube.cpp" />
 		<Unit filename="src/models/ghost.cpp" />

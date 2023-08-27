@@ -8,11 +8,16 @@
 #define WALL 3
 #define CUBE 4
 #define GHOST 5
+#define APPLE 6
 
 #define CUBE_STRIP 50
 #define CUBE_WALL_HEIGHT 3
 
 #define GHOST_OFFSET 3
+#define APPLE_X_MIN 1.5
+#define APPE_X_MAX 7
+#define APPLE_Z_MIN -3
+#define APPLE_Z_MAX 3
 
 #define MAP_SIZE 10
 
@@ -30,6 +35,12 @@ SnakeGame::SnakeGame() {
 
     ghost_1 = std::make_unique<Ghost>(Ghost());
     ghost_1->setInitialPos(glm::vec4(0.0f, 0.5f, -MAP_SIZE + GHOST_OFFSET/1.2, 1.0f));
+
+    apple_0 = std::make_unique<Apple>(Apple());
+    apple_0->setInitialPos(glm::vec4(MAP_SIZE/2, 0.3f, -0.5f, 1.0f));
+
+    apple_1 = std::make_unique<Apple>(Apple());
+    apple_1->setInitialPos(glm::vec4(-MAP_SIZE/2.5, 0.3f, -0.5f, 1.0f));
 }
 
 void SnakeGame::updateScreenFrame() {
@@ -42,7 +53,6 @@ void SnakeGame::updateScreenFrame() {
     GLint view_uniform            = glGetUniformLocation(globalState.g_GpuProgramID, "view");
     GLint projection_uniform      = glGetUniformLocation(globalState.g_GpuProgramID, "projection");
     GLint object_id               = glGetUniformLocation(globalState.g_GpuProgramID, "object_id");
-    GLint render_as_black_uniform = glGetUniformLocation(globalState.g_GpuProgramID, "render_as_black");
     GLint bbox_min_uniform        = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_min");
     GLint bbox_max_uniform        = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_max");
 
@@ -58,6 +68,14 @@ void SnakeGame::updateScreenFrame() {
         }
     } else if (!globalState.getMPressed()) {
         should_switch_game = true;
+    }
+
+    if (globalState.getIPressed()) {
+        apple_0->getNewPosition(APPLE_X_MAX, APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
+    }
+
+    if (globalState.getOPressed()) {
+        apple_1->getNewPosition(-APPLE_X_MAX, -APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
     }
 
     if (game_mode == GameMode::Dev) {
@@ -224,6 +242,13 @@ void SnakeGame::updateScreenFrame() {
     glUniform1i(object_id, GHOST);
     draw(ghost_0, Matrix_Translate(ghost_0->getPos().x, ghost_0->getPos().y, ghost_0->getPos().z)*Matrix_Scale(0.5f, 0.5f, 0.5f)*Matrix_Rotate_Y(-M_PI/2), model_uniform, bbox_min_uniform, bbox_max_uniform);
     draw(ghost_1, Matrix_Translate(ghost_1->getPos().x, ghost_1->getPos().y, ghost_1->getPos().z)*Matrix_Scale(0.5f, 0.5f, 0.5f)*Matrix_Rotate_Y(M_PI/2), model_uniform, bbox_min_uniform, bbox_max_uniform);
+
+    glUniform1i(object_id, APPLE);
+    glm::vec4 apple0Position = apple_0->getPos();
+    glm::vec4 apple1Position = apple_1->getPos();
+
+    draw(apple_0, Matrix_Translate(apple0Position.x, apple0Position.y, apple0Position.z)*Matrix_Scale(0.009, 0.009, 0.009), model_uniform, bbox_min_uniform, bbox_max_uniform);
+    draw(apple_1, Matrix_Translate(apple1Position.x, apple1Position.y, apple1Position.z)*Matrix_Scale(0.009, 0.009, 0.009), model_uniform, bbox_min_uniform, bbox_max_uniform);
 
     glUniform1i(object_id, PACMAN);
     draw(pacman, Matrix_Translate(pacman->getPos()[0], pacman->getPos()[1], pacman->getPos()[2]), model_uniform, bbox_min_uniform, bbox_max_uniform);

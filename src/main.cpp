@@ -8,6 +8,7 @@
 #include <limits>
 #include <fstream>
 #include <sstream>
+#include <time.h>
 
 // Headers das bibliotecas OpenGL
 #include <glad/glad.h>
@@ -41,6 +42,8 @@ std::unique_ptr<ProgramScreen> currentScreen = std::make_unique<SnakeGame>(Snake
 
 int main()
 {
+    srand(time(NULL));
+
     int success = glfwInit();
     if (!success)
     {
@@ -93,6 +96,7 @@ int main()
     LoadTextureImage("../../data/wall_texture.png");
     LoadTextureImage("../../data/pacman.jpg");
     LoadTextureImage("../../data/ghost_texture.jpg");
+    LoadTextureImage("../../data/apple_texture.png");
 
     glEnable(GL_DEPTH_TEST);
 
@@ -203,6 +207,7 @@ void LoadShadersFromFiles()
     glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Wall"), 1);
     glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Pacman"), 2);
     glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Ghost"), 3);
+    glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Apple"), 4);
     glUseProgram(0);
 }
 
@@ -304,6 +309,18 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mod)
         globalState.setMPressed(true);
     } else if (key == GLFW_KEY_M && action == GLFW_RELEASE) {
         globalState.setMPressed(false);
+    }
+
+    if (key == GLFW_KEY_I && action == GLFW_PRESS) {
+        globalState.setIPressed(true);
+    } else if (key == GLFW_KEY_I && action == GLFW_RELEASE) {
+        globalState.setIPressed(false);
+    }
+
+    if (key == GLFW_KEY_O && action == GLFW_PRESS) {
+        globalState.setOPressed(true);
+    } else if (key == GLFW_KEY_O && action == GLFW_RELEASE) {
+        globalState.setOPressed(false);
     }
 }
 
