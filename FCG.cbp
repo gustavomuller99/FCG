@@ -382,9 +382,14 @@
 		<Unit filename="include/stb_image.h" />
 		<Unit filename="include/tiny_obj_loader.h" />
 		<Unit filename="include/utils.h" />
+		<Unit filename="include/utils/bezier.h" />
 		<Unit filename="include/utils/collisions.h" />
+		<Unit filename="include/utils/dejavufont.h" />
 		<Unit filename="include/utils/globalState.h" />
+		<Unit filename="include/utils/matrices.h" />
 		<Unit filename="include/utils/models.h" />
+		<Unit filename="include/utils/texture.h" />
+		<Unit filename="include/utils/utils.h" />
 		<Unit filename="src/glad.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -403,6 +408,7 @@
 		<Unit filename="src/stb_image.cpp" />
 		<Unit filename="src/textrendering.cpp" />
 		<Unit filename="src/tiny_obj_loader.cpp" />
+		<Unit filename="src/utils/bezier.cpp" />
 		<Unit filename="src/utils/collisions.cpp" />
 		<Unit filename="src/utils/globalState.cpp" />
 		<Unit filename="src/utils/matrices.cpp" />

@@ -20,6 +20,33 @@ GLuint Apple::buildTriangles() {
     return vertex_array_object_id;
 }
 
+void Apple::update() {
+    float current_frame = glfwGetTime();
+    float delta_time = current_frame - this->last_frame;
+    this->last_frame = current_frame;
+    float speed = delta_time * 0.3;
+
+    glm::vec2 nextPt = getNextPt(this->t, this->p1, this->p2, this->p3, this->p4);
+
+    if(!this->bChangeDirection) {
+        this->pos.y -= nextPt.y;
+        this->t = this->t + speed >= 1 ? 1 : this->t + speed;
+
+        if(this->t >= 1) {
+            this->bChangeDirection = true;
+        }
+        return;
+    }
+
+    this->pos.y += nextPt.y;
+
+    this->t = this->t - speed <= 0 ? 0 : this->t - speed;
+
+    if(this->t <= 0) {
+        this->bChangeDirection = false;
+    }
+}
+
 void Apple::setInitialPos(glm::vec4 initialPos) {
     this->pos = initialPos;
 }
@@ -41,8 +68,6 @@ glm::vec4 Apple::getPos() {
 }
 
 void Apple::getNewPosition(int xMin, int xMax, int zMin, int zMax) {
-    int xOffset = abs(xMax - xMin);
-    int zOffset = abs(zMin - zMax);
 
     float randomX = ((float)rand() / RAND_MAX) * (xMax - xMin) + xMin;
     float randomZ = ((float)rand() / RAND_MAX) * (zMax - zMin) + zMin;

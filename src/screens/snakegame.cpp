@@ -15,7 +15,7 @@
 
 #define GHOST_OFFSET 3
 #define APPLE_X_MIN 1.5
-#define APPE_X_MAX 7
+#define APPLE_X_MAX 7
 #define APPLE_Z_MIN -3
 #define APPLE_Z_MAX 3
 
@@ -37,10 +37,10 @@ SnakeGame::SnakeGame() {
     ghost_1->setInitialPos(glm::vec4(0.0f, 0.5f, -MAP_SIZE + GHOST_OFFSET/1.2, 1.0f));
 
     apple_0 = std::make_unique<Apple>(Apple());
-    apple_0->setInitialPos(glm::vec4(MAP_SIZE/2, 0.3f, -0.5f, 1.0f));
+    apple_0->setInitialPos(glm::vec4(MAP_SIZE/2, 0.4, -0.5f, 1.0f));
 
     apple_1 = std::make_unique<Apple>(Apple());
-    apple_1->setInitialPos(glm::vec4(-MAP_SIZE/2.5, 0.3f, -0.5f, 1.0f));
+    apple_1->setInitialPos(glm::vec4(-MAP_SIZE/2.5, 0.4, -0.5f, 1.0f));
 }
 
 void SnakeGame::updateScreenFrame() {
@@ -89,14 +89,16 @@ void SnakeGame::updateScreenFrame() {
     } else {
         /* update all in game elements */
         pacman->update();
-        ghost_0->update();
-        ghost_1->update();
-        /* reward[i]->update() */
-
         /* check for collisions */
 
         updateGameCamera();
     }
+
+    ghost_0->update();
+    ghost_1->update();
+    /* reward[i]->update() */
+    apple_0->update();
+    apple_1->update();
 
     glm::vec4 camera_view_vector = camera_front;
     glm::mat4 projection = Matrix_Perspective(field_of_view, globalState.g_ScreenRatio, nearplane, farplane);
