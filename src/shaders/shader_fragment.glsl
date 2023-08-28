@@ -52,10 +52,27 @@ void main()
 
     vec4 v = normalize(camera_position - p);
 
-    float U = 0.0;
-    float V = 0.0;
+    // Vetor que define o sentido da reflexão especular ideal.
+    vec4 r = -l + (2*n*dot(n, l));
+
+    // Espectro da fonte de iluminação
+    vec3 I = vec3(1.0,1.0,1.0); // PREENCH AQUI o espectro da fonte de luz
+    // Espectro da luz ambiente
+    vec3 Ia = vec3(0.2,0.2,0.2); // PREENCHA AQUI o espectro da luz ambiente
+    // Termo difuso utilizando a lei dos cossenos de Lambert
+    vec3 lambert = I*max(0, dot(n, l)); // PREENCHA AQUI o termo difuso de Lambert
+
+    vec3 ambient_term = vec3(0, 0, 0);
+    vec3 phong_specular_term = vec3(0, 0, 0);
+    float q = 5;
 
     vec3 Kd0 = vec3(0.2, 0.2, 0.2);
+
+    vec3 Ka = vec3(0,0,0);
+    vec3 Ks = vec3(0,0,0);
+
+    float U = 0.0;
+    float V = 0.0;
 
     switch(object_id) {
         case TERRAIN:
@@ -72,11 +89,27 @@ void main()
             U = texcoords.x;
             V = texcoords.y;
             Kd0 = texture(Ghost, vec2(U,V)).rgb;
+
+            Ka = vec3(0.4, 0.2, 0.2);
+            Ks = vec3(1, 1, 1);
+            q = 128;
+            // Termo ambiente
+            ambient_term = Ka*Ia;
+            // Termo especular utilizando o modelo de iluminação de Phong
+            phong_specular_term = Ks*I*max((pow(dot(r, v), q)), 0);
             break;
         case APPLE:
             U = texcoords.x;
             V = texcoords.y;
             Kd0 = texture(Apple, vec2(U,V)).rgb;
+
+            Ka = vec3(1, 1, 1);
+            Ks = vec3(1, 1, 1);
+            q = 128;
+            // Termo ambiente
+            ambient_term = Ka*Ia;
+            // Termo especular utilizando o modelo de iluminação de Phong
+            phong_specular_term = Ks*I*max((pow(dot(r, v), q)), 0);
             break;
         case PACMAN:
             vec4 bbox_center = (bbox_min + bbox_max) / 2.0;
@@ -93,14 +126,13 @@ void main()
             U = (theta + M_PI) / (2 * M_PI);
             V = (phi + M_PI / 2) / M_PI;
             Kd0 = texture(Pacman, vec2(U,V)).rgb + vec3(.8f, .8f, 0.0f);
+
             break;
         case CUBE:
         default:
             break;
     }
-
-    float lambert = max(0,dot(n,l));
-    color.rgb = Kd0 * (lambert + 0.01);
+    color.rgb = Kd0 * (lambert + 0.01 + ambient_term + phong_specular_term);
 
     color.a = 1;
     color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);
