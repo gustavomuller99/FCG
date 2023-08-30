@@ -159,6 +159,7 @@ void SnakeGame::updateScreenFrame() {
          bbox_min_uniform,
          bbox_max_uniform);
 
+    glUniform1i(object_id, CUBE);
     //Obstaculos 1
     glm::vec4 starting_position = glm::vec4(MAP_SIZE/3, 1.0f, MAP_SIZE/2, 1.0f);
     for(int i = 0; i < 15; i++) {

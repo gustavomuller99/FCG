@@ -55,11 +55,13 @@ void main()
     // Vetor que define o sentido da reflexão especular ideal.
     vec4 r = -l + (2*n*dot(n, l));
 
+    vec4 h = normalize(v + l);
+
     // Espectro da fonte de iluminação
     vec3 I = vec3(1.0,1.0,1.0); // PREENCH AQUI o espectro da fonte de luz
     // Espectro da luz ambiente
     vec3 Ia = vec3(0.2,0.2,0.2); // PREENCHA AQUI o espectro da luz ambiente
-    // Termo difuso utilizando a lei dos cossenos de Lambert
+
     vec3 lambert = I*max(0, dot(n, l)); // PREENCHA AQUI o termo difuso de Lambert
 
     vec3 ambient_term = vec3(0, 0, 0);
@@ -96,7 +98,7 @@ void main()
             // Termo ambiente
             ambient_term = Ka*Ia;
             // Termo especular utilizando o modelo de iluminação de Phong
-            phong_specular_term = Ks*I*max((pow(dot(r, v), q)), 0);
+            phong_specular_term = Ks*I*max((pow(dot(n, h), q)), 0);
             break;
         case APPLE:
             U = texcoords.x;
@@ -109,7 +111,7 @@ void main()
             // Termo ambiente
             ambient_term = Ka*Ia;
             // Termo especular utilizando o modelo de iluminação de Phong
-            phong_specular_term = Ks*I*max((pow(dot(r, v), q)), 0);
+            phong_specular_term = Ks*I*max((pow(dot(n, h), q)), 0);
             break;
         case PACMAN:
             vec4 bbox_center = (bbox_min + bbox_max) / 2.0;
