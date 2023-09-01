@@ -8,6 +8,7 @@ in vec4 position_model;
 
 // Coordenadas de textura obtidas do arquivo OBJ (se existirem!)
 in vec2 texcoords;
+in vec3 vertex_color;
 
 // Matrizes computadas no código C++ e enviadas para a GPU
 uniform mat4 model;
@@ -79,20 +80,27 @@ void main()
 
     switch(object_id) {
         case AXIS:
-            Kd0 = vec3(1.0, 1.0, 1.0);
-            lambert = vec3(100.0, 100.0, 100.0);
+            color.rgb = vec3(1.0, 1.0, 1.0);
             break;
 
         case TERRAIN:
             U = texcoords.x;
             V = texcoords.y;
             Kd0 = texture(Terrain, vec2(U,V)).rgb;
+
+            color.rgb = Kd0 * (lambert + 0.01 + ambient_term + phong_specular_term);
+            color.a = 1;
+            color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);
             break;
 
         case WALL:
             U = texcoords.x;
             V = texcoords.y;
             Kd0 = texture(Wall, vec2(U,V)).rgb;
+
+            color.rgb = Kd0 * (lambert + 0.01 + ambient_term + phong_specular_term);
+            color.a = 1;
+            color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);
             break;
 
         case GHOST:
@@ -107,6 +115,10 @@ void main()
             ambient_term = Ka*Ia;
             // Termo especular utilizando o modelo de iluminação de Phong
             phong_specular_term = Ks*I*max((pow(dot(n, h), q)), 0);
+
+            color.rgb = Kd0 * (lambert + 0.01 + ambient_term + phong_specular_term);
+            color.a = 1;
+            color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);
             break;
 
         case APPLE:
@@ -121,6 +133,10 @@ void main()
             ambient_term = Ka*Ia;
             // Termo especular utilizando o modelo de iluminação de Phong
             phong_specular_term = Ks*I*max((pow(dot(n, h), q)), 0);
+
+            color.rgb = Kd0 * (lambert + 0.01 + ambient_term + phong_specular_term);
+            color.a = 1;
+            color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);
             break;
 
         case PACMAN:
@@ -139,25 +155,32 @@ void main()
             V = (phi + M_PI / 2) / M_PI;
             Kd0 = texture(Pacman, vec2(U,V)).rgb + vec3(.8f, .8f, 0.0f);
 
-            Ka = vec3(1, 1, 1);
+            /*Ka = vec3(1, 1, 1);
             Ks = vec3(1, 1, 1);
             q = 128;
             // Termo ambiente
             ambient_term = Ka*Ia;
             // Termo especular utilizando o modelo de iluminação de Phong
             phong_specular_term = Ks*I*max((pow(dot(n, h), q)), 0);
+
+            color.rgb = Kd0 * (lambert + 0.01 + ambient_term + phong_specular_term);
+            color.a = 1;
+            color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);*/
+
+            color.rgb = Kd0 * vertex_color;
             break;
 
         case CUBE:
             Kd0 = texture(Cube, vec3(position_model[0], position_model[1], position_model[2])).rgb;
+            /*color.rgb = Kd0 * (lambert + 0.01 + ambient_term + phong_specular_term);
+            color.a = 1;
+            color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);*/
+
+            color.rgb = Kd0 * vertex_color;
             break;
 
         default:
             break;
     }
-
-    color.rgb = Kd0 * (lambert + 0.01 + ambient_term + phong_specular_term);
-    color.a = 1;
-    color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);
 }
 

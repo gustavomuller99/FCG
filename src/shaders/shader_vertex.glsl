@@ -11,6 +11,19 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+#define TERRAIN 0
+#define AXIS  1
+#define PACMAN  2
+#define WALL 3
+#define CUBE 4
+#define GHOST 5
+#define APPLE 6
+
+uniform int object_id;
+uniform samplerCube Cube;
+uniform vec4 bbox_min;
+uniform vec4 bbox_max;
+
 // Atributos de vértice que serão gerados como saída ("out") pelo Vertex Shader.
 // ** Estes serão interpolados pelo rasterizador! ** gerando, assim, valores
 // para cada fragmento, os quais serão recebidos como entrada pelo Fragment
@@ -19,6 +32,10 @@ out vec4 position_world;
 out vec4 position_model;
 out vec4 normal;
 out vec2 texcoords;
+out vec3 vertex_color;
+
+#define M_PI   3.14159265358979323846
+#define M_PI_2 1.57079632679489661923
 
 void main()
 {
@@ -63,5 +80,39 @@ void main()
 
     // Coordenadas de textura obtidas do arquivo OBJ (se existirem!)
     texcoords = texture_coefficients;
+
+    vec4 l = normalize(vec4(1.0,1.0,0.0,0.0));
+
+    // Espectro da fonte de iluminação
+    vec3 I = vec3(1.0,1.0,1.0);
+    // Espectro da luz ambiente
+    vec3 Ia = vec3(0.2,0.2,0.2);
+
+    vec3 Kd0 = vec3(0.2, 0.2, 0.2);
+    vec3 Ka = vec3(0,0,0);
+    vec3 Ks = vec3(0,0,0);
+    float q = 5;
+
+    vec3 lambert = I*max(0, dot(normal_coefficients, l)); // PREENCHA AQUI o termo difuso de Lambert
+    vec3 ambient_term = vec3(0, 0, 0);
+
+    switch(object_id) {
+        case CUBE:
+            Ka = vec3(1, 1, 1);
+            // Termo ambiente
+            ambient_term = Ka*Ia;
+
+            vertex_color = (lambert + 0.01 + ambient_term);
+            break;
+        case PACMAN:
+            Ka = vec3(1, 1, 1);
+            // Termo ambiente
+            ambient_term = Ka*Ia;
+
+            vertex_color = (lambert + 0.01 + ambient_term);
+            break;
+        default:
+            break;
+    }
 }
 
