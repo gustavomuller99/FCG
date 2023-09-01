@@ -24,6 +24,7 @@ GLuint LoadShader_Fragment(const char* filename); // Carrega um fragment shader
 void LoadShader(const char* filename, GLuint shader_id); // Função utilizada pelas duas acima
 void LoadTextureImage(const char* filename); // Função que carrega imagens de textura
 GLuint CreateGpuProgram(GLuint vertex_shader_id, GLuint fragment_shader_id); // Cria um programa de GPU
+void LoadCubemap(std::vector<std::string> faces);
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 void ErrorCallback(int error, const char* description);
@@ -97,6 +98,17 @@ int main()
     LoadTextureImage("../../data/pacman.jpg");
     LoadTextureImage("../../data/ghost_texture.jpg");
     LoadTextureImage("../../data/apple_texture.png");
+
+    std::vector<std::string> faces =
+    {
+        "../../data/obstacule_right.jpg",
+        "../../data/obstacule_left.jpg",
+        "../../data/obstacule_top.jpg",
+        "../../data/obstacule_bottom.jpg",
+        "../../data/obstacule_front.jpg",
+        "../../data/obstacule_back.jpg"
+    };
+    LoadCubemap(faces);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -208,6 +220,7 @@ void LoadShadersFromFiles()
     glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Pacman"), 2);
     glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Ghost"), 3);
     glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Apple"), 4);
+    glUniform1i(glGetUniformLocation(globalState.g_GpuProgramID, "Cube"), 5);
     glUseProgram(0);
 }
 
@@ -327,6 +340,41 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mod)
 void ErrorCallback(int error, const char* description)
 {
     fprintf(stderr, "ERROR: GLFW: %s\n", description);
+}
+
+// source: https://learnopengl.com/Advanced-OpenGL/Cubemaps
+void LoadCubemap(std::vector<std::string> faces)
+{
+    GLuint texture_id;
+    GLuint sampler_id;
+    glGenTextures(1, &texture_id);
+    glGenSamplers(1, &sampler_id);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, texture_id);
+
+    int width, height, nrChannels;
+    for (unsigned int i = 0; i < faces.size(); i++)
+    {
+        unsigned char *data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+        if (data)
+        {
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                         0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
+            );
+            stbi_image_free(data);
+        }
+        else
+        {
+            fprintf(stderr, "ERROR: Cannot open image file \"%s\".\n", faces[i].c_str());
+            stbi_image_free(data);
+        }
+    }
+
+    GLuint textureunit = g_NumLoadedTextures;
+    glActiveTexture(GL_TEXTURE0 + textureunit);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, texture_id);
+    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+    glBindSampler(textureunit, sampler_id);
+    g_NumLoadedTextures += 1;
 }
 
 void LoadTextureImage(const char* filename)

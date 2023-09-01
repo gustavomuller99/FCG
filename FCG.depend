@@ -2075,7 +2075,7 @@
 	<inttypes.h>
 	<stdint.h>
 
-1692677730 source:d:\fcg\src\main.cpp
+1693544545 source:d:\fcg\src\main.cpp
 	<cmath>
 	<cstdio>
 	<cstdlib>
@@ -2084,6 +2084,7 @@
 	<limits>
 	<fstream>
 	<sstream>
+	<time.h>
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<screens/snakegame.h>
@@ -2111,7 +2112,7 @@
 	<GL/glext.h>
 	<GL/glu.h>
 
-1692677730 d:\fcg\include\screens\snakegame.h
+1693526969 d:\fcg\include\screens\snakegame.h
 	<interfaces/programScreen.h>
 	<models/pacman.h>
 	<models/axis.h>
@@ -2119,6 +2120,7 @@
 	<models/wall.h>
 	<models/cube.h>
 	<models/ghost.h>
+	<models/apple.h>
 	<utils/globalState.h>
 	<glad/glad.h>
 	<GLFW/glfw3.h>
@@ -2759,7 +2761,7 @@
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1692677942 d:\fcg\include\interfaces\sceneobject.h
+1693526969 d:\fcg\include\interfaces\sceneobject.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<glm/vec3.hpp>
@@ -2964,7 +2966,7 @@
 1692156345 d:\fcg\include\glm\gtc\type_ptr.inl
 	<cstring>
 
-1692166919 d:\fcg\include\utils\utils.h
+1693526969 d:\fcg\include\utils\utils.h
 	<cstdio>
 
 1692156345 d:\fcg\include\models\axis.h
@@ -3016,7 +3018,7 @@
 	<utils/models.h>
 	<glm/vec3.hpp>
 
-1692168758 d:\fcg\include\utils\globalstate.h
+1693526969 d:\fcg\include\utils\globalstate.h
 	<glad/glad.h>
 	<utils/utils.h>
 	<memory>
@@ -3048,21 +3050,21 @@
 	<intrin.h>
 	<arm_neon.h>
 
-1692156345 source:d:\fcg\src\models\axis.cpp
+1692678267 source:d:\fcg\src\models\axis.cpp
 	<models/axis.h>
 
 1692156345 source:d:\fcg\src\models\snake.cpp
 	<models/snake.h>
 
-1692156345 source:d:\fcg\src\models\terrain.cpp
+1692678256 source:d:\fcg\src\models\terrain.cpp
 	<models/terrain.h>
 	<utils/models.h>
 
-1692156345 source:d:\fcg\src\models\wall.cpp
+1692678274 source:d:\fcg\src\models\wall.cpp
 	<models/wall.h>
 	<utils/models.h>
 
-1692677730 source:d:\fcg\src\screens\snakegame.cpp
+1693540213 source:d:\fcg\src\screens\snakegame.cpp
 	<screens/snakegame.h>
 	<matrices.h>
 	<math.h>
@@ -3105,7 +3107,7 @@
 	<utils/matrices.h>
 	<utils/models.h>
 
-1692677730 d:\fcg\include\models\pacman.h
+1693538030 d:\fcg\include\models\pacman.h
 	<interfaces/sceneObject.h>
 	<glm/mat4x4.hpp>
 	<glm/vec4.hpp>
@@ -3113,13 +3115,13 @@
 	<glm/gtc/type_ptr.hpp>
 	<utils/utils.h>
 
-1692223867 source:d:\fcg\src\models\pacman.cpp
+1693526969 source:d:\fcg\src\models\pacman.cpp
 	<models/pacman.h>
 
-1692677730 source:d:\fcg\src\models\cube.cpp
+1693544929 source:d:\fcg\src\models\cube.cpp
 	<models/cube.h>
 
-1692677730 d:\fcg\include\models\cube.h
+1693544669 d:\fcg\include\models\cube.h
 	<interfaces/sceneObject.h>
 	<glm/mat4x4.hpp>
 	<glm/vec4.hpp>
@@ -3169,7 +3171,7 @@
 	<models/ghost.h>
 	<utils/models.h>
 
-1692677997 d:\fcg\include\models\ghost.h
+1693537964 d:\fcg\include\models\ghost.h
 	<interfaces/sceneObject.h>
 	<glm/mat4x4.hpp>
 	<glm/vec4.hpp>
@@ -3177,11 +3179,11 @@
 	<glm/gtc/type_ptr.hpp>
 	<utils/utils.h>
 
-1692677730 source:d:\fcg\src\models\ghost.cpp
+1693537928 source:d:\fcg\src\models\ghost.cpp
 	<models/ghost.h>
 	<utils/models.h>
 
-1692677730 source:d:\fcg\src\models\item.cpp
+1692678261 source:d:\fcg\src\models\item.cpp
 	<models/item.h>
 
 1692677730 d:\fcg\include\models\item.h
@@ -3214,5 +3216,27 @@
 	<GLFW/glfw3.h>
 
 1693177194 source:c:\users\benhu\downloads\laboratorio_4_codigo_fonte(3)\snakegame_fcg\src\utils\bezier.cpp
+	<utils/bezier.h>
+
+1693537015 d:\fcg\include\models\apple.h
+	<interfaces/sceneObject.h>
+	<glm/mat4x4.hpp>
+	<glm/vec4.hpp>
+	<utils/globalState.h>
+	<glm/gtc/type_ptr.hpp>
+	<utils/utils.h>
+	<utils/bezier.h>
+
+1693526969 d:\fcg\include\utils\bezier.h
+	<tiny_obj_loader.h>
+	<utils/matrices.h>
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+
+1693536877 source:d:\fcg\src\models\apple.cpp
+	<models/apple.h>
+	<utils/models.h>
+
+1693526969 source:d:\fcg\src\utils\bezier.cpp
 	<utils/bezier.h>
 

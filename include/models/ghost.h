@@ -16,6 +16,7 @@ class Ghost : public SceneObject {
         glm::vec3 bbox_min;
         glm::vec3 bbox_max;
         glm::vec4 pos;
+        GLfloat speed = 1.5f;
         float last_frame = 0.0f;
         bool bChangeDirection = false;
     public:

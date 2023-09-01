@@ -32,6 +32,7 @@ uniform sampler2D Wall;
 uniform sampler2D Pacman;
 uniform sampler2D Ghost;
 uniform sampler2D Apple;
+uniform samplerCube Cube;
 
 out vec4 color;
 
@@ -77,16 +78,23 @@ void main()
     float V = 0.0;
 
     switch(object_id) {
+        case AXIS:
+            Kd0 = vec3(1.0, 1.0, 1.0);
+            lambert = vec3(100.0, 100.0, 100.0);
+            break;
+
         case TERRAIN:
             U = texcoords.x;
             V = texcoords.y;
             Kd0 = texture(Terrain, vec2(U,V)).rgb;
             break;
+
         case WALL:
             U = texcoords.x;
             V = texcoords.y;
             Kd0 = texture(Wall, vec2(U,V)).rgb;
             break;
+
         case GHOST:
             U = texcoords.x;
             V = texcoords.y;
@@ -100,6 +108,7 @@ void main()
             // Termo especular utilizando o modelo de iluminação de Phong
             phong_specular_term = Ks*I*max((pow(dot(n, h), q)), 0);
             break;
+
         case APPLE:
             U = texcoords.x;
             V = texcoords.y;
@@ -113,6 +122,7 @@ void main()
             // Termo especular utilizando o modelo de iluminação de Phong
             phong_specular_term = Ks*I*max((pow(dot(n, h), q)), 0);
             break;
+
         case PACMAN:
             vec4 bbox_center = (bbox_min + bbox_max) / 2.0;
 
@@ -128,9 +138,12 @@ void main()
             U = (theta + M_PI) / (2 * M_PI);
             V = (phi + M_PI / 2) / M_PI;
             Kd0 = texture(Pacman, vec2(U,V)).rgb + vec3(.8f, .8f, 0.0f);
-
             break;
+
         case CUBE:
+            Kd0 = texture(Cube, vec3(position_model[0], position_model[1], position_model[2])).rgb;
+            break;
+
         default:
             break;
     }

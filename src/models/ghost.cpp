@@ -28,16 +28,17 @@ void Ghost::setInitialPos(glm::vec4 initialPos) {
 
 void Ghost::update() {
     float current_frame = glfwGetTime();
-    float delta_time = current_frame - this->last_frame;
-    this->last_frame = current_frame;
+    float delta_time = current_frame - last_frame;
+    last_frame = current_frame;
+    float cur_speed = speed * delta_time;
 
     if(!this->bChangeDirection) {
-        this->pos.x += 0.01f;
+        this->pos.x += cur_speed;
         if(this->pos.x >= MAP_SIZE - 1) {
             this->bChangeDirection = true;
         }
     } else {
-        this->pos.x -= 0.01f;
+        this->pos.x -= cur_speed;
         if(this->pos.x <= -MAP_SIZE + 2) {
             this->bChangeDirection = false;
         }

@@ -6,14 +6,14 @@ GLuint Cube::buildTriangles() {
         return vertex_array_object_id;
 
     float model_coefficients[8 * 4] = {
-        -radius, 2 * radius,  radius, 1.0f,
-        -radius, 0.0f,  radius, 1.0f,
-         radius, 0.0f,  radius, 1.0f,
-         radius, 2 * radius,  radius, 1.0f,
-        -radius, 2 * radius, -radius, 1.0f,
-        -radius, 0.0f, -radius, 1.0f,
-         radius, 0.0f, -radius, 1.0f,
-         radius, 2 * radius, -radius, 1.0f,
+        -radius, radius,  radius, 1.0f,
+        -radius, -radius,  radius, 1.0f,
+         radius, -radius,  radius, 1.0f,
+         radius, radius,  radius, 1.0f,
+        -radius, radius, -radius, 1.0f,
+        -radius, -radius, -radius, 1.0f,
+         radius, -radius, -radius, 1.0f,
+         radius, radius, -radius, 1.0f,
     };
 
     float color_coefficients[8 * 4] = {
@@ -82,6 +82,10 @@ GLenum Cube::getRenderingMode() {
 
 void* Cube::getFirstIndex() {
     return 0;
+}
+
+glm::vec4 Cube::getPos() {
+    return glm::vec4(0.0, radius, 0.0, 0.0);
 }
 
 GLuint Cube::getIndexesNum() {

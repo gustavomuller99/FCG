@@ -89,14 +89,14 @@ void SnakeGame::updateScreenFrame() {
     } else {
         /* update all in game elements */
         pacman->update();
-        /* check for collisions */
 
+        ghost_0->update();
+        ghost_1->update();
+
+        /* check for collisions */
         updateGameCamera();
     }
 
-    ghost_0->update();
-    ghost_1->update();
-    /* reward[i]->update() */
     apple_0->update();
     apple_1->update();
 
@@ -162,16 +162,15 @@ void SnakeGame::updateScreenFrame() {
     glUniform1i(object_id, CUBE);
     //Obstaculos 1
     glm::vec4 starting_position = glm::vec4(MAP_SIZE/3, 1.0f, MAP_SIZE/2, 1.0f);
-    for(int i = 0; i < 15; i++) {
+    for(int i = 0; i < 7; i++) {
          draw(obsctacles[i],
-             Matrix_Translate(starting_position.x + (i * 0.3f), 0.0f, starting_position.z),
+             Matrix_Translate(starting_position.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position.z),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
         if(i == 3) {
-            i++;
             draw(obsctacles[i],
-             Matrix_Translate(starting_position.x + (i * 0.5f), 0.0f, starting_position.z - 0.75f),
+             Matrix_Translate(starting_position.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position.z - 0.6f),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
@@ -180,16 +179,15 @@ void SnakeGame::updateScreenFrame() {
 
     //Obstaculos 2
     glm::vec4 starting_position1 = glm::vec4(-MAP_SIZE/1.65, 1.0f, MAP_SIZE/2, 1.0f);
-    for(int i = 0; i < 15; i++) {
+    for(int i = 0; i < 7; i++) {
          draw(obsctacles[i],
-             Matrix_Translate(starting_position1.x + (i * 0.3f), 0.0f, starting_position1.z),
+             Matrix_Translate(starting_position1.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position1.z),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
         if(i == 3) {
-            i++;
             draw(obsctacles[i],
-             Matrix_Translate(starting_position1.x + (i * 0.5f), 0.0f, starting_position1.z - 0.75f),
+             Matrix_Translate(starting_position1.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position1.z - 0.6f),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
@@ -198,16 +196,15 @@ void SnakeGame::updateScreenFrame() {
 
     //Obstaculos 3
     glm::vec4 starting_position2 = glm::vec4(MAP_SIZE/3, 1.0f, -MAP_SIZE/1.65, 1.0f);
-    for(int i = 0; i < 15; i++) {
+    for(int i = 0; i < 7; i++) {
          draw(obsctacles[i],
-             Matrix_Translate(starting_position2.x + (i * 0.3f), 0.0f, starting_position2.z),
+             Matrix_Translate(starting_position2.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position2.z),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
         if(i == 3) {
-            i++;
             draw(obsctacles[i],
-             Matrix_Translate(starting_position2.x + (i * 0.5f), 0.0f, starting_position2.z + 0.75f),
+             Matrix_Translate(starting_position2.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position2.z + 0.6f),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
@@ -216,16 +213,15 @@ void SnakeGame::updateScreenFrame() {
 
     //Obstaculos 4
     glm::vec4 starting_position3 = glm::vec4(-MAP_SIZE/1.65, 1.0f, -MAP_SIZE/1.65, 1.0f);
-    for(int i = 0; i < 15; i++) {
+    for(int i = 0; i < 7; i++) {
          draw(obsctacles[i],
-             Matrix_Translate(starting_position3.x + (i * 0.3f), 0.0f, starting_position3.z),
+             Matrix_Translate(starting_position3.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position3.z),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
         if(i == 3) {
-            i++;
             draw(obsctacles[i],
-             Matrix_Translate(starting_position3.x + (i * 0.5f), 0.0f, starting_position3.z + 0.75f),
+             Matrix_Translate(starting_position3.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position3.z + 0.6f),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
@@ -234,24 +230,40 @@ void SnakeGame::updateScreenFrame() {
 
     //Parede Central
     glm::vec4 starting_position4 = glm::vec4(+0.5f, 1.0f, -(9*0.3f), 1.0f);
-    for(int i = 0; i < 15; i++){
+    for(int i = 0; i < 7; i++){
         draw(obsctacles[i],
-             Matrix_Translate(starting_position4.x, 0.0f, starting_position4.z + (i * 0.3f)),
+             Matrix_Translate(starting_position4.x, obsctacles[i]->getPos()[1], starting_position4.z + (i * 0.6f)),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
     }
 
     glUniform1i(object_id, GHOST);
-    draw(ghost_0, Matrix_Translate(ghost_0->getPos().x, ghost_0->getPos().y, ghost_0->getPos().z)*Matrix_Scale(0.5f, 0.5f, 0.5f)*Matrix_Rotate_Y(-M_PI/2), model_uniform, bbox_min_uniform, bbox_max_uniform);
-    draw(ghost_1, Matrix_Translate(ghost_1->getPos().x, ghost_1->getPos().y, ghost_1->getPos().z)*Matrix_Scale(0.5f, 0.5f, 0.5f)*Matrix_Rotate_Y(M_PI/2), model_uniform, bbox_min_uniform, bbox_max_uniform);
+    draw(ghost_0,
+         Matrix_Translate(ghost_0->getPos().x, ghost_0->getPos().y, ghost_0->getPos().z)*Matrix_Scale(0.5f, 0.5f, 0.5f)*Matrix_Rotate_Y(-M_PI/2),
+         model_uniform,
+         bbox_min_uniform,
+         bbox_max_uniform);
+    draw(ghost_1,
+         Matrix_Translate(ghost_1->getPos().x, ghost_1->getPos().y, ghost_1->getPos().z)*Matrix_Scale(0.5f, 0.5f, 0.5f)*Matrix_Rotate_Y(M_PI/2),
+         model_uniform,
+         bbox_min_uniform,
+         bbox_max_uniform);
 
     glUniform1i(object_id, APPLE);
     glm::vec4 apple0Position = apple_0->getPos();
     glm::vec4 apple1Position = apple_1->getPos();
 
-    draw(apple_0, Matrix_Translate(apple0Position.x, apple0Position.y, apple0Position.z)*Matrix_Scale(0.009, 0.009, 0.009), model_uniform, bbox_min_uniform, bbox_max_uniform);
-    draw(apple_1, Matrix_Translate(apple1Position.x, apple1Position.y, apple1Position.z)*Matrix_Scale(0.009, 0.009, 0.009), model_uniform, bbox_min_uniform, bbox_max_uniform);
+    draw(apple_0,
+         Matrix_Translate(apple0Position.x, apple0Position.y, apple0Position.z)*Matrix_Scale(0.009, 0.009, 0.009),
+         model_uniform,
+         bbox_min_uniform,
+         bbox_max_uniform);
+    draw(apple_1,
+         Matrix_Translate(apple1Position.x, apple1Position.y, apple1Position.z)*Matrix_Scale(0.009, 0.009, 0.009),
+         model_uniform,
+         bbox_min_uniform,
+         bbox_max_uniform);
 
     glUniform1i(object_id, PACMAN);
     draw(pacman, Matrix_Translate(pacman->getPos()[0], pacman->getPos()[1], pacman->getPos()[2]), model_uniform, bbox_min_uniform, bbox_max_uniform);

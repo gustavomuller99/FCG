@@ -24,7 +24,7 @@ void Apple::update() {
     float current_frame = glfwGetTime();
     float delta_time = current_frame - this->last_frame;
     this->last_frame = current_frame;
-    float speed = delta_time * 0.3;
+    float speed = delta_time * 1.0;
 
     glm::vec2 nextPt = getNextPt(this->t, this->p1, this->p2, this->p3, this->p4);
 
