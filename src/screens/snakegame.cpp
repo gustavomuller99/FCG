@@ -91,6 +91,9 @@ void SnakeGame::updateScreenFrame() {
         /* reset all in game elements */
         pacman->reset();
 
+        updateLastGameTime();
+        resetPoints();
+
         updateFreeCamera();
 
         glUniform1i(object_id, AXIS);
@@ -99,23 +102,9 @@ void SnakeGame::updateScreenFrame() {
         /* update all in game elements */
         pacman->update();
 
-        //To Do - Checar somente quando estiver do lado certo (eixo Z) para melhorar performance
-        if(CheckSphereCubeCollision(pacman, ghost_0) || CheckSphereCubeCollision(pacman, ghost_1)){
-            should_switch_game = true;
-            globalState.setMPressed(true);
-            pacman->setInitialPos(glm::vec4(2.0, pacman->getPos().y, -0.5, 1.0));
-        }
-
-        //Checar apenas no lado certo (eixo X) para melhorar performance
-        if(CheckSphereSphereCollision(apple_0, pacman)) {
-            apple_0->getNewPosition(APPLE_X_MAX, APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
-        }
-
-        if(CheckSphereSphereCollision(apple_1, pacman)) {
-            apple_1->getNewPosition(-APPLE_X_MAX, -APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
-        }
-
         /* check for collisions */
+        checkCollisions();
+
         updateGameCamera();
     }
 
@@ -286,6 +275,13 @@ void SnakeGame::updateScreenFrame() {
 
     glUniform1i(object_id, PACMAN);
     draw(pacman, Matrix_Translate(pacman->getPos()[0], pacman->getPos()[1], pacman->getPos()[2]), model_uniform, bbox_min_uniform, bbox_max_uniform);
+
+    float pad = TextRendering_LineHeight(globalState.window);
+    char buffer[80];
+    snprintf(buffer, 80, "Tempo: %i", (int) getGameTime());
+    TextRendering_PrintString(globalState.window, buffer, -1.0f+pad/10, -1.0f+2*pad/10, 1.2f);
+    snprintf(buffer, 80, "Pontos: %i", (int) points);
+    TextRendering_PrintString(globalState.window, buffer, -1.0f+pad/10, -1.0f+1.5*pad, 1.2f);
 }
 
 void SnakeGame::draw(std::unique_ptr<SceneObject> &object, glm::mat4 model, GLint model_uniform, GLint bbox_min_uniform, GLint bbox_max_uniform) {
@@ -377,4 +373,40 @@ void SnakeGame::updateGameCamera() {
 
     camera_pos_c = pacman->getPos() - pacman->getDir() - pacman->getDir();
     camera_pos_c[1] = 2.00f;
+}
+
+void SnakeGame::checkCollisions() {
+    //To Do - Checar somente quando estiver do lado certo (eixo Z) para melhorar performance
+    if(CheckSphereCubeCollision(pacman, ghost_0) || CheckSphereCubeCollision(pacman, ghost_1)){
+        should_switch_game = true;
+        globalState.setMPressed(true);
+        pacman->setInitialPos(glm::vec4(2.0, pacman->getPos().y, -0.5, 1.0));
+    }
+
+    //Checar apenas no lado certo (eixo X) para melhorar performance
+    if(CheckSphereSphereCollision(apple_0, pacman)) {
+        apple_0->getNewPosition(APPLE_X_MAX, APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
+        addPoint();
+    }
+
+    if(CheckSphereSphereCollision(apple_1, pacman)) {
+        apple_1->getNewPosition(-APPLE_X_MAX, -APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
+        addPoint();
+    }
+}
+
+void SnakeGame::updateLastGameTime() {
+    time = glfwGetTime();
+}
+
+float SnakeGame::getGameTime() {
+    return glfwGetTime() - time;
+}
+
+void SnakeGame::addPoint() {
+    points += 100 / (getGameTime());
+}
+
+void SnakeGame::resetPoints() {
+    points = 0;
 }

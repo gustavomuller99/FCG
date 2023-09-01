@@ -25,7 +25,7 @@ class SnakeGame: public ProgramScreen {
         SnakeGame();
         void updateScreenFrame() override;
     private:
-        static const int n_obs = 5*15;
+        static const int n_obs = 5*7;
 
         std::unique_ptr<SceneObject> pacman;
         std::unique_ptr<SceneObject> axis;
@@ -42,6 +42,9 @@ class SnakeGame: public ProgramScreen {
         int game_mode = GameMode::Dev;
         bool should_switch_game = true;
 
+        float points = 0;
+        float time = 0;
+
         /* CAMERA LIVRE PARA MODO DEV */
         float g_camera_theta = - PI / 4; // Ângulo no plano ZX em relação ao eixo Z
         float g_camera_phi = - PI / 4;   // Ângulo em relação ao eixo Y
@@ -56,6 +59,13 @@ class SnakeGame: public ProgramScreen {
         /* CAMERA JOGO */
         void updateGameCamera();
         /* -------------------------- */
+
+        void checkCollisions();
+        void updateLastGameTime();
+        float getGameTime();
+
+        void addPoint();
+        void resetPoints();
 
         float nearplane = -0.1f;
         float farplane  = -30.0f;

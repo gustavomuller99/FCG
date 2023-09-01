@@ -110,13 +110,13 @@ int main()
     };
     LoadCubemap(faces);
 
-    glEnable(GL_DEPTH_TEST);
+    TextRendering_Init();
 
+    glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
 
-    TextRendering_Init();
     globalState.window = window;
 
     // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela
