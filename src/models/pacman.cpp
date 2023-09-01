@@ -120,4 +120,8 @@ float Pacman::getSize() {
     return this->radius;
 }
 
+void Pacman::setInitialPos(glm::vec4 initialPos) {
+    this->pos = initialPos;
+}
+
 

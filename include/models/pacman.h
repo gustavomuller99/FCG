@@ -19,6 +19,7 @@ class Pacman : public SceneObject {
         void update() override;
         void reset() override;
         float getSize() override;
+        void setInitialPos(glm::vec4 initialPos) override;
 
     private:
         GLfloat radius = 0.25;
