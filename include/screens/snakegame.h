@@ -28,6 +28,7 @@ class SnakeGame: public ProgramScreen {
         static const int n_obs = 5*7;
 
         std::unique_ptr<SceneObject> pacman;
+        std::unique_ptr<SceneObject> pacman_top;
         std::unique_ptr<SceneObject> axis;
         std::unique_ptr<SceneObject> terrain;
         std::unique_ptr<SceneObject> wall;

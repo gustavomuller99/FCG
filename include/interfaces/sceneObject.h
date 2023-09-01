@@ -36,6 +36,9 @@ class SceneObject {
         virtual float getSize() {
             return 1.0f;
         }
+        virtual float getRot() {
+            return 0.0f;
+        }
         ~SceneObject() = default;
     protected:
         GLuint vertex_array_object_id = -1;

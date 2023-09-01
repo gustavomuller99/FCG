@@ -10,7 +10,7 @@ GLuint Pacman::buildTriangles() {
     GLuint indices[2 * points * points];
 
     float phi = -M_PI / 2;
-    for (int i = 0; i < points; i++, phi += angle_inc) {
+    for (int i = 0; i < points / 2; i++, phi += angle_inc) {
         float theta = -M_PI;
         for (int j = 0; j < points; j++, theta += angle_inc) {
             float x = radius * sin(phi) * cos(theta);
@@ -53,7 +53,7 @@ GLuint Pacman::buildTriangles() {
     glEnableVertexAttribArray(location);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    for (int i = 0; i < points - 1; i++) {
+    for (int i = 0; i < points / 2 - 1; i++) {
         for (int j = 0; j < points + 1; j++) {
             indices[i * 2 * (points + 1) + 2 * j] = i * points + (j % points);
             indices[i * 2 * (points + 1) + 2 * j + 1] = (i + 1) * points + (j % points);
@@ -110,14 +110,33 @@ void Pacman::update() {
     float cur_speed = speed * delta_time;
 
     pos += dir * cur_speed;
+
+    updateAngle();
 }
 
 void Pacman::reset() {
     last_frame = glfwGetTime();
+    updateAngle();
+}
+
+void Pacman::updateAngle() {
+    if (pacman_angle >= -M_PI / 5) {
+        pacman_angle_sign = -1;
+    }
+
+    if (pacman_angle <= -M_PI / 2) {
+        pacman_angle_sign = 1;
+    }
+
+    pacman_angle += pacman_angle_sign * tilt;
 }
 
 float Pacman::getSize() {
     return this->radius;
+}
+
+float Pacman::getRot() {
+    return pacman_angle;
 }
 
 void Pacman::setInitialPos(glm::vec4 initialPos) {
