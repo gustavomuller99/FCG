@@ -78,6 +78,9 @@ void SnakeGame::updateScreenFrame() {
         apple_1->getNewPosition(-APPLE_X_MAX, -APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
     }
 
+    apple_0->update();
+    apple_1->update();
+
     if (game_mode == GameMode::Dev) {
         /* reset all in game elements */
         pacman->reset();
@@ -93,12 +96,17 @@ void SnakeGame::updateScreenFrame() {
         ghost_0->update();
         ghost_1->update();
 
+        if(CheckSphereSphereCollision(apple_0, pacman)) {
+            apple_0->getNewPosition(APPLE_X_MAX, APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
+        }
+
+        if(CheckSphereSphereCollision(apple_1, pacman)) {
+            apple_1->getNewPosition(-APPLE_X_MAX, -APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
+        }
+
         /* check for collisions */
         updateGameCamera();
     }
-
-    apple_0->update();
-    apple_1->update();
 
     glm::vec4 camera_view_vector = camera_front;
     glm::mat4 projection = Matrix_Perspective(field_of_view, globalState.g_ScreenRatio, nearplane, farplane);

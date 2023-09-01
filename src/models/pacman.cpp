@@ -116,4 +116,8 @@ void Pacman::reset() {
     last_frame = glfwGetTime();
 }
 
+float Pacman::getSize() {
+    return this->radius;
+}
+
 

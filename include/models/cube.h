@@ -15,6 +15,7 @@ class Cube: public SceneObject {
         GLuint getIndexesNum() override;
         float getLineWidth() override;
         glm::vec4 getPos() override;
+        float getSize() override;
 
     private:
         GLfloat radius = 0.3;

@@ -33,6 +33,9 @@ class SceneObject {
         virtual glm::vec4 getDir() {
             return glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
         };
+        virtual float getSize() {
+            return 1.0f;
+        }
         ~SceneObject() = default;
     protected:
         GLuint vertex_array_object_id = -1;

@@ -30,6 +30,7 @@ class Ghost : public SceneObject {
         glm::vec4 getPos() override;
         void update() override;
         void setInitialPos(glm::vec4 initialPos) override;
+        float getSize() override;
 };
 
 #endif

@@ -19,6 +19,7 @@ class Apple : public SceneObject {
         void getNewPosition(int xMin, int xMax, int zMin, int zMax) override;
         void setInitialPos(glm::vec4 initialPos) override;
         void update() override;
+        float getSize() override;
 
     private:
         glm::vec4 pos = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);

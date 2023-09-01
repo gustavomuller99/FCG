@@ -72,3 +72,7 @@ glm::vec3 Ghost::getBBox_min() {
 glm::vec3 Ghost::getBBox_max() {
     return this->bbox_max;
 }
+
+float Ghost::getSize() {
+    return (this->bbox_min.z - this->bbox_max.z) / 2;
+}

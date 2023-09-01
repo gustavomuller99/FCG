@@ -95,3 +95,7 @@ GLuint Cube::getIndexesNum() {
 float Cube::getLineWidth() {
     return 10.0f;
 }
+
+float Cube::getSize() {
+    return this->radius;
+}

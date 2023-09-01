@@ -74,3 +74,7 @@ void Apple::getNewPosition(int xMin, int xMax, int zMin, int zMax) {
 
     this->pos =  glm::vec4(randomX, this->pos.y, randomZ, 1.0f);
 }
+
+float Apple::getSize(){
+    return 0.3f;
+}
