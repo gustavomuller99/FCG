@@ -14,6 +14,7 @@
 #include <GLFW/glfw3.h>
 #include <matrices.h>
 #include <vector>
+#include <textrendering.h>
 
 class SnakeGame: public ProgramScreen {
 

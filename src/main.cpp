@@ -116,6 +116,9 @@ int main()
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
 
+    TextRendering_Init();
+    globalState.window = window;
+
     // Ficamos em um loop infinito, renderizando, até que o usuário feche a janela
     while (!glfwWindowShouldClose(window))
     {

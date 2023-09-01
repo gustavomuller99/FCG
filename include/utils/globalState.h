@@ -3,10 +3,12 @@
 
 #include <glad/glad.h>
 #include <utils/utils.h>
+#include <GLFW/glfw3.h>
 #include <memory>
 
 class GlobalState {
     public:
+        GLFWwindow* window;
         GLuint g_GpuProgramID = 0;
         GLuint64 pressedKeys = 0;
         float g_ScreenRatio = 1.0f;

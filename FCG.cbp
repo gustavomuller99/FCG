@@ -380,6 +380,7 @@
 		<Unit filename="include/models/wall.h" />
 		<Unit filename="include/screens/snakegame.h" />
 		<Unit filename="include/stb_image.h" />
+		<Unit filename="include/textrendering.h" />
 		<Unit filename="include/tiny_obj_loader.h" />
 		<Unit filename="include/utils.h" />
 		<Unit filename="include/utils/bezier.h" />

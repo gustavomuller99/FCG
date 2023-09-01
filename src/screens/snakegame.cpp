@@ -56,6 +56,8 @@ void SnakeGame::updateScreenFrame() {
     GLint bbox_min_uniform        = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_min");
     GLint bbox_max_uniform        = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_max");
 
+    //TextRendering_PrintString(globalState.window, " Model matrix ModelIn World Coords.", 0.0f, 0.0f, 0.0f);
+
     if (globalState.getMPressed() && should_switch_game) {
         should_switch_game = false;
         switch (game_mode) {
