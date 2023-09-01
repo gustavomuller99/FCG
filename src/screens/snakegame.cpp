@@ -56,21 +56,35 @@ void SnakeGame::updateScreenFrame() {
     GLint bbox_min_uniform        = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_min");
     GLint bbox_max_uniform        = glGetUniformLocation(globalState.g_GpuProgramID, "bbox_max");
 
-    //TextRendering_PrintString(globalState.window, " Model matrix ModelIn World Coords.", 0.0f, 0.0f, 0.0f);
-
-    if (globalState.getMPressed() && should_switch_game) {
-        should_switch_game = false;
+    if (globalState.getMPressed() && should_switch_dev) {
+        should_switch_dev = false;
         switch (game_mode) {
             case GameMode::Dev:
                 game_mode = GameMode::Running;
                 break;
-            default:
+            case GameMode::Running:
                 game_mode = GameMode::Dev;
+                break;
+            default:
                 break;
         }
     } else if (!globalState.getMPressed()) {
-        should_switch_game = true;
+        should_switch_dev = true;
     }
+
+    if (globalState.getRPressed() && should_switch_lost) {
+        should_switch_lost = false;
+        switch (game_mode) {
+            case GameMode::Lost:
+                game_mode = GameMode::Running;
+                break;
+            default:
+                break;
+        }
+    } else if (!globalState.getRPressed()) {
+        should_switch_lost = true;
+    }
+
     /*
     if (globalState.getIPressed()) {
         apple_0->getNewPosition(APPLE_X_MAX, APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
@@ -87,25 +101,41 @@ void SnakeGame::updateScreenFrame() {
     ghost_0->update();
     ghost_1->update();
 
-    if (game_mode == GameMode::Dev) {
-        /* reset all in game elements */
-        pacman->reset();
+    switch (game_mode) {
+        case GameMode::Dev:
+            /* reset all in game elements */
+            pacman->reset();
+            pacman->setInitialPos(glm::vec4(2.0, pacman->getPos().y, -0.5, 1.0));
+            updateLastGameTime();
+            resetPoints();
 
-        updateLastGameTime();
-        resetPoints();
+            updateFreeCamera();
+            glUniform1i(object_id, AXIS);
+            draw(axis, Matrix_Identity(), model_uniform, bbox_min_uniform, bbox_max_uniform);
+            break;
 
-        updateFreeCamera();
+        case GameMode::Lost:
+            /* reset all in game elements */
+            pacman->reset();
+            pacman->setInitialPos(glm::vec4(2.0, pacman->getPos().y, -0.5, 1.0));
+            updateLastGameTime();
+            resetPoints();
 
-        glUniform1i(object_id, AXIS);
-        draw(axis, Matrix_Identity(), model_uniform, bbox_min_uniform, bbox_max_uniform);
-    } else {
-        /* update all in game elements */
-        pacman->update();
+            updateGameCamera();
+            break;
 
-        /* check for collisions */
-        checkCollisions();
+        case GameMode::Running:
+            /* update all in game elements */
+            pacman->update();
 
-        updateGameCamera();
+            /* check for collisions */
+            checkCollisions();
+
+            updateGameCamera();
+            break;
+
+        default:
+            break;
     }
 
     glm::vec4 camera_view_vector = camera_front;
@@ -282,6 +312,13 @@ void SnakeGame::updateScreenFrame() {
     TextRendering_PrintString(globalState.window, buffer, -1.0f+pad/10, -1.0f+2*pad/10, 1.2f);
     snprintf(buffer, 80, "Pontos: %i", (int) points);
     TextRendering_PrintString(globalState.window, buffer, -1.0f+pad/10, -1.0f+1.5*pad, 1.2f);
+
+    if (game_mode == GameMode::Lost) {
+        snprintf(buffer, 80, "Voce perdeu!", (int) points);
+        TextRendering_PrintString(globalState.window, buffer, -0.1, 1.5*pad, 1.2f);
+        snprintf(buffer, 80, "Pressione R para reiniciar o jogo", (int) points);
+        TextRendering_PrintString(globalState.window, buffer, -0.35, 0.0, 1.2f);
+    }
 }
 
 void SnakeGame::draw(std::unique_ptr<SceneObject> &object, glm::mat4 model, GLint model_uniform, GLint bbox_min_uniform, GLint bbox_max_uniform) {
@@ -378,9 +415,7 @@ void SnakeGame::updateGameCamera() {
 void SnakeGame::checkCollisions() {
     //To Do - Checar somente quando estiver do lado certo (eixo Z) para melhorar performance
     if(CheckSphereCubeCollision(pacman, ghost_0) || CheckSphereCubeCollision(pacman, ghost_1)){
-        should_switch_game = true;
-        globalState.setMPressed(true);
-        pacman->setInitialPos(glm::vec4(2.0, pacman->getPos().y, -0.5, 1.0));
+        game_mode = GameMode::Lost;
     }
 
     //Checar apenas no lado certo (eixo X) para melhorar performance

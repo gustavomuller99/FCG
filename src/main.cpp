@@ -338,6 +338,12 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mod)
     } else if (key == GLFW_KEY_O && action == GLFW_RELEASE) {
         globalState.setOPressed(false);
     }
+
+    if (key == GLFW_KEY_R && action == GLFW_PRESS) {
+        globalState.setRPressed(true);
+    } else if (key == GLFW_KEY_R && action == GLFW_RELEASE) {
+        globalState.setRPressed(false);
+    }
 }
 
 void ErrorCallback(int error, const char* description)

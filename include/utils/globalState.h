@@ -66,6 +66,12 @@ class GlobalState {
         bool getOPressed() {
             return pressedKeys & (1 << KeyMapping::O);
         }
+        void setRPressed(bool pressed) {
+            pressedKeys += (1 << KeyMapping::R) * (pressed ? 1 : -1);
+        }
+        bool getRPressed() {
+            return pressedKeys & (1 << KeyMapping::R);
+        }
 };
 
 extern GlobalState globalState;

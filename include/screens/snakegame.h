@@ -40,7 +40,8 @@ class SnakeGame: public ProgramScreen {
         glm::vec4 camera_front         = glm::vec4(0.0f, 0.0f,  0.0f, 0.0f);
         glm::vec4 camera_up_vector     = glm::vec4(0.0f, 1.0f,  0.0f, 0.0f);
         int game_mode = GameMode::Dev;
-        bool should_switch_game = true;
+        bool should_switch_dev = true;
+        bool should_switch_lost = true;
 
         float points = 0;
         float time = 0;

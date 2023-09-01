@@ -14,11 +14,13 @@ enum KeyMapping {
     M = 5,
     I = 6,
     O = 7,
+    R = 8
 };
 
 enum GameMode {
     Dev = 0,
-    Running = 1
+    Running = 1,
+    Lost = 2
 };
 
 static GLenum glCheckError_(const char *file, int line)
