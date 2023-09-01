@@ -16,15 +16,15 @@ GLuint Cube::buildTriangles() {
          radius, radius, -radius, 1.0f,
     };
 
-    float color_coefficients[8 * 4] = {
-        0.3, 0.32, 0.72, 1.0,
-        0.3, 0.32, 0.72, 1.0,
-        0.3, 0.32, 0.72, 1.0,
-        0.3, 0.32, 0.72, 1.0,
-        0.3, 0.32, 0.72, 1.0,
-        0.3, 0.32, 0.72, 1.0,
-        0.3, 0.32, 0.72, 1.0,
-        0.3, 0.32, 0.72, 1.0,
+    float normal_coefficients[8 * 4] = {
+        -radius, radius,  radius, 1.0f,
+        -radius, -radius,  radius, 1.0f,
+         radius, -radius,  radius, 1.0f,
+         radius, radius,  radius, 1.0f,
+        -radius, radius, -radius, 1.0f,
+        -radius, -radius, -radius, 1.0f,
+         radius, -radius, -radius, 1.0f,
+         radius, radius, -radius, 1.0f,
     };
 
     GLuint VBO_model_coefficients_id;
@@ -43,8 +43,8 @@ GLuint Cube::buildTriangles() {
     GLuint VBO_color_coefficients_id;
     glGenBuffers(1, &VBO_color_coefficients_id);
     glBindBuffer(GL_ARRAY_BUFFER, VBO_color_coefficients_id);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(color_coefficients), NULL, GL_STATIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(color_coefficients), color_coefficients);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(normal_coefficients), NULL, GL_STATIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(normal_coefficients), normal_coefficients);
     location = 1; // "(location = 1)" em "shader_vertex.glsl"
     number_of_dimensions = 4; // vec4 em "shader_vertex.glsl"
     glVertexAttribPointer(location, number_of_dimensions, GL_FLOAT, GL_FALSE, 0, 0);
