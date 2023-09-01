@@ -6,7 +6,7 @@ GLuint Pacman::buildTriangles() {
         return vertex_array_object_id;
 
     float model_coefficients[points * points * 4];
-    float color_coefficients[points * points * 4];
+    float normal_coefficients[points * points * 4];
     GLuint indices[2 * points * points];
 
     float phi = -M_PI / 2;
@@ -22,10 +22,10 @@ GLuint Pacman::buildTriangles() {
             model_coefficients[i * points * 4 + j * 4 + 2] = z;
             model_coefficients[i * points * 4 + j * 4 + 3] = 1.0;
 
-            color_coefficients[i * points * 4 + j * 4 + 0] = 1.0;
-            color_coefficients[i * points * 4 + j * 4 + 1] = 0.0;
-            color_coefficients[i * points * 4 + j * 4 + 2] = 0.0;
-            color_coefficients[i * points * 4 + j * 4 + 3] = 1.0;
+            normal_coefficients[i * points * 4 + j * 4 + 0] = x;
+            normal_coefficients[i * points * 4 + j * 4 + 1] = y;
+            normal_coefficients[i * points * 4 + j * 4 + 2] = z;
+            normal_coefficients[i * points * 4 + j * 4 + 3] = 1.0;
         }
     }
 
@@ -45,8 +45,8 @@ GLuint Pacman::buildTriangles() {
     GLuint VBO_color_coefficients_id;
     glGenBuffers(1, &VBO_color_coefficients_id);
     glBindBuffer(GL_ARRAY_BUFFER, VBO_color_coefficients_id);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(color_coefficients), NULL, GL_STATIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(color_coefficients), color_coefficients);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(normal_coefficients), NULL, GL_STATIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(normal_coefficients), normal_coefficients);
     location = 1; // "(location = 1)" em "shader_vertex.glsl"
     number_of_dimensions = 4; // vec4 em "shader_vertex.glsl"
     glVertexAttribPointer(location, number_of_dimensions, GL_FLOAT, GL_FALSE, 0, 0);

@@ -138,6 +138,14 @@ void main()
             U = (theta + M_PI) / (2 * M_PI);
             V = (phi + M_PI / 2) / M_PI;
             Kd0 = texture(Pacman, vec2(U,V)).rgb + vec3(.8f, .8f, 0.0f);
+
+            Ka = vec3(1, 1, 1);
+            Ks = vec3(1, 1, 1);
+            q = 128;
+            // Termo ambiente
+            ambient_term = Ka*Ia;
+            // Termo especular utilizando o modelo de iluminação de Phong
+            phong_specular_term = Ks*I*max((pow(dot(n, h), q)), 0);
             break;
 
         case CUBE:
@@ -147,8 +155,8 @@ void main()
         default:
             break;
     }
-    color.rgb = Kd0 * (lambert + 0.01 + ambient_term + phong_specular_term);
 
+    color.rgb = Kd0 * (lambert + 0.01 + ambient_term + phong_specular_term);
     color.a = 1;
     color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);
 }
