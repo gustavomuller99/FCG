@@ -15,6 +15,7 @@
 #include <matrices.h>
 #include <vector>
 #include <textrendering.h>
+#include <utils/collisions.h>
 
 class SnakeGame: public ProgramScreen {
 

@@ -116,4 +116,12 @@ void Pacman::reset() {
     last_frame = glfwGetTime();
 }
 
+float Pacman::getSize() {
+    return this->radius;
+}
+
+void Pacman::setInitialPos(glm::vec4 initialPos) {
+    this->pos = initialPos;
+}
+
 

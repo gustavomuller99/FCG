@@ -34,7 +34,7 @@ void Ghost::update() {
 
     if(!this->bChangeDirection) {
         this->pos.x += cur_speed;
-        if(this->pos.x >= MAP_SIZE - 1) {
+        if(this->pos.x >= MAP_SIZE - 1.5) {
             this->bChangeDirection = true;
         }
     } else {
@@ -71,4 +71,8 @@ glm::vec3 Ghost::getBBox_min() {
 
 glm::vec3 Ghost::getBBox_max() {
     return this->bbox_max;
+}
+
+float Ghost::getSize() {
+    return 0.80;
 }

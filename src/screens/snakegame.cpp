@@ -37,10 +37,10 @@ SnakeGame::SnakeGame() {
     ghost_1->setInitialPos(glm::vec4(0.0f, 0.5f, -MAP_SIZE + GHOST_OFFSET/1.2, 1.0f));
 
     apple_0 = std::make_unique<Apple>(Apple());
-    apple_0->setInitialPos(glm::vec4(MAP_SIZE/2, 0.4, -0.5f, 1.0f));
+    apple_0->setInitialPos(glm::vec4(MAP_SIZE/2, 0.5, -0.5f, 1.0f));
 
     apple_1 = std::make_unique<Apple>(Apple());
-    apple_1->setInitialPos(glm::vec4(-MAP_SIZE/2.5, 0.4, -0.5f, 1.0f));
+    apple_1->setInitialPos(glm::vec4(-MAP_SIZE/2.5, 0.5, -0.5f, 1.0f));
 }
 
 void SnakeGame::updateScreenFrame() {
@@ -71,7 +71,7 @@ void SnakeGame::updateScreenFrame() {
     } else if (!globalState.getMPressed()) {
         should_switch_game = true;
     }
-
+    /*
     if (globalState.getIPressed()) {
         apple_0->getNewPosition(APPLE_X_MAX, APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
     }
@@ -79,6 +79,13 @@ void SnakeGame::updateScreenFrame() {
     if (globalState.getOPressed()) {
         apple_1->getNewPosition(-APPLE_X_MAX, -APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
     }
+    */
+
+    apple_0->update();
+    apple_1->update();
+
+    ghost_0->update();
+    ghost_1->update();
 
     if (game_mode == GameMode::Dev) {
         /* reset all in game elements */
@@ -92,15 +99,25 @@ void SnakeGame::updateScreenFrame() {
         /* update all in game elements */
         pacman->update();
 
-        ghost_0->update();
-        ghost_1->update();
+        //To Do - Checar somente quando estiver do lado certo (eixo Z) para melhorar performance
+        if(CheckSphereCubeCollision(pacman, ghost_0) || CheckSphereCubeCollision(pacman, ghost_1)){
+            should_switch_game = true;
+            globalState.setMPressed(true);
+            pacman->setInitialPos(glm::vec4(2.0, pacman->getPos().y, -0.5, 1.0));
+        }
+
+        //Checar apenas no lado certo (eixo X) para melhorar performance
+        if(CheckSphereSphereCollision(apple_0, pacman)) {
+            apple_0->getNewPosition(APPLE_X_MAX, APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
+        }
+
+        if(CheckSphereSphereCollision(apple_1, pacman)) {
+            apple_1->getNewPosition(-APPLE_X_MAX, -APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
+        }
 
         /* check for collisions */
         updateGameCamera();
     }
-
-    apple_0->update();
-    apple_1->update();
 
     glm::vec4 camera_view_vector = camera_front;
     glm::mat4 projection = Matrix_Perspective(field_of_view, globalState.g_ScreenRatio, nearplane, farplane);

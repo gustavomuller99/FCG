@@ -29,7 +29,7 @@ void Apple::update() {
     glm::vec2 nextPt = getNextPt(this->t, this->p1, this->p2, this->p3, this->p4);
 
     if(!this->bChangeDirection) {
-        this->pos.y -= nextPt.y;
+        this->pos.y = this->pos.y - nextPt.y <= 0 ? 0.1 : this->pos.y - nextPt.y;
         this->t = this->t + speed >= 1 ? 1 : this->t + speed;
 
         if(this->t >= 1) {
@@ -38,7 +38,7 @@ void Apple::update() {
         return;
     }
 
-    this->pos.y += nextPt.y;
+    this->pos.y = this->pos.y + nextPt.y <= 0 ? 0.1 : this->pos.y + nextPt.y;
 
     this->t = this->t - speed <= 0 ? 0 : this->t - speed;
 
@@ -73,4 +73,8 @@ void Apple::getNewPosition(int xMin, int xMax, int zMin, int zMax) {
     float randomZ = ((float)rand() / RAND_MAX) * (zMax - zMin) + zMin;
 
     this->pos =  glm::vec4(randomX, this->pos.y, randomZ, 1.0f);
+}
+
+float Apple::getSize(){
+    return 0.3f;
 }
