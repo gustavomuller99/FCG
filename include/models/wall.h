@@ -16,6 +16,9 @@ class Wall: public SceneObject {
         GLuint indexesNum;
         glm::vec3 bbox_min;
         glm::vec3 bbox_max;
+        glm::vec4 pos;
+        float sizeX;
+        float sizeZ;
     public:
         GLuint buildTriangles() override;
         GLenum getRenderingMode() override;
@@ -24,5 +27,11 @@ class Wall: public SceneObject {
         float getLineWidth() override;
         glm::vec3 getBBox_min() override;
         glm::vec3 getBBox_max() override;
+        void setInitialPos(glm::vec4 initialPos) override;
+        glm::vec4 getPos() override;
+        float getSizeX() override;
+        float getSizeZ() override;
+        void setSizeX(float newValue) override;
+        void setSizeZ(float newValue) override;
 };
 #endif

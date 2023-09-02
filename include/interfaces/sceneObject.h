@@ -15,6 +15,7 @@ class SceneObject {
         virtual void* getFirstIndex() = 0;
         virtual GLuint getIndexesNum() = 0;
         virtual void update() { };
+        virtual void update(bool shouldMoveForward) { };
         virtual void reset() { };
         virtual void setInitialPos(glm::vec4 initialPos) { };
         virtual void getNewPosition(int xMin, int xMax, int zMin, int zMax) { };
@@ -36,6 +37,14 @@ class SceneObject {
         virtual float getSize() {
             return 1.0f;
         }
+        virtual float getSizeX() {
+            return 1.0f;
+        }
+        virtual float getSizeZ() {
+            return 1.0f;
+        }
+        virtual void setSizeX(float newSize) { };
+        virtual void setSizeZ(float newSize) { };
         ~SceneObject() = default;
     protected:
         GLuint vertex_array_object_id = -1;

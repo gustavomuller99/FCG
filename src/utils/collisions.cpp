@@ -1,22 +1,20 @@
 #include <utils/collisions.h>
 
-//FONTE https://learnopengl.com/In-Practice/2D-Game/Collisions/Collision-detection#:~:text=If%20both%20the%20horizontal%20and%20vertical%20edges%20overlap%20we%20have%20a%20collision.&text=We%20check%20if%20the%20right,similarly%20for%20the%20vertical%20axis.
-//Pacman - Ghost
-bool CheckCubeCollision(std::unique_ptr<SceneObject> &one, std::unique_ptr<SceneObject> &two) // AABB - AABB collision
+//Colisao ponto - retangulo (2D)
+bool CheckMapBoxCollision(glm::vec4 point, float maxZ, float maxX, float minZ, float minX) // AABB - AABB collision
 {
     // collision x-axis?
-    bool collisionX = one->getPos().x + one->getSize() >= two->getPos().x &&
-        two->getPos().x + two->getSize() >= one->getPos().x;
+    bool inboundX = (point.x) >= minX && point.x <= maxX;
     // collision y-axis?
-    bool collisionY = one->getPos().y + one->getSize() >= two->getPos().y &&
-        two->getPos().y + two->getSize() >= one->getPos().y;
 
-    bool collisionZ = one->getPos().z + one->getSize() >= two->getPos().z && two->getPos().z + two->getSize() >= one->getPos().z;
-    // collision only if on both axes
-    return collisionX && collisionY && collisionZ;
+    // collision z-axis?
+    bool inboundZ = point.z >= minZ && point.z <= maxZ;
+
+    // collision only if on all axes
+    return !inboundX || !inboundZ;
 }
 
-//Pacman - Obstacles
+//Pacman - Ghost
 bool CheckSphereCubeCollision(std::unique_ptr<SceneObject> &one, std::unique_ptr<SceneObject> &two) // AABB - Circle collision
 {
     // get center point circle first
@@ -39,6 +37,7 @@ bool CheckSphereCubeCollision(std::unique_ptr<SceneObject> &one, std::unique_ptr
     return glm::length(difference) < one->getSize();
 }
 
+//FONTE https://learnopengl.com/In-Practice/2D-Game/Collisions/Collision-detection#:~:text=If%20both%20the%20horizontal%20and%20vertical%20edges%20overlap%20we%20have%20a%20collision.&text=We%20check%20if%20the%20right,similarly%20for%20the%20vertical%20axis.
 //Pacman - Items
 bool CheckSphereSphereCollision(std::unique_ptr<SceneObject> &pacman, std::unique_ptr<SceneObject> &item) { //Circle - Circle Collision
     // get center point circle first

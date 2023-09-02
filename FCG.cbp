@@ -14,7 +14,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-Wall" />
-					<Add option="-std=c++11" />
+					<Add option="-std=gnu++14" />
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
@@ -399,7 +399,6 @@
 		<Unit filename="src/models/axis.cpp" />
 		<Unit filename="src/models/cube.cpp" />
 		<Unit filename="src/models/ghost.cpp" />
-		<Unit filename="src/models/item.cpp" />
 		<Unit filename="src/models/pacman.cpp" />
 		<Unit filename="src/models/terrain.cpp" />
 		<Unit filename="src/models/wall.cpp" />

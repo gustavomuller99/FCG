@@ -16,7 +16,7 @@ class Pacman : public SceneObject {
         GLuint getIndexesNum() override;
         glm::vec4 getPos() override;
         glm::vec4 getDir() override;
-        void update() override;
+        void update(bool shouldMoveForward) override;
         void reset() override;
         float getSize() override;
         void setInitialPos(glm::vec4 initialPos) override;
@@ -26,7 +26,7 @@ class Pacman : public SceneObject {
         GLint points = 120;
         GLfloat angle_inc = (2 * M_PI * (360 / points)) / 360;
 
-        GLfloat speed = 1.0f;
+        GLfloat speed = 2.0f;
         GLfloat tilt = 0.02f;
         GLfloat pos_theta = 0.0f;
         float last_frame = 0.0f;

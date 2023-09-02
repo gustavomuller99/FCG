@@ -90,7 +90,7 @@ glm::vec4 Pacman::getDir() {
     return dir;
 }
 
-void Pacman::update() {
+void Pacman::update(bool shouldMoveForward) {
     if (globalState.getAPressed()) {
         pos_theta += -tilt;
     }
@@ -109,7 +109,9 @@ void Pacman::update() {
     last_frame = current_frame;
     float cur_speed = speed * delta_time;
 
-    pos += dir * cur_speed;
+    if(shouldMoveForward) {
+       pos += dir * cur_speed;
+    }
 }
 
 void Pacman::reset() {

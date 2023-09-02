@@ -25,10 +25,22 @@ SnakeGame::SnakeGame() {
     pacman = std::make_unique<Pacman>(Pacman());
     axis = std::make_unique<Axis>(Axis());
     terrain = std::make_unique<Terrain>(Terrain());
-    wall = std::make_unique<Wall>(Wall());
+
+    for(int i = 0; i < n_walls; i++) {
+        walls[i] = std::make_unique<Wall>(Wall());
+    }
+
     for (int i = 0; i < n_obs; i++) {
         obsctacles[i] = std::make_unique<Cube>(Cube());
     }
+    walls[0]->setInitialPos(glm::vec4(MAP_SIZE, 0.0f, MAP_SIZE/1.65, 1.0f));
+    walls[1]->setInitialPos(glm::vec4(MAP_SIZE, 0.0f, -MAP_SIZE/2.45, 1.0f));
+    walls[2]->setInitialPos(glm::vec4(-MAP_SIZE, 0.0f, MAP_SIZE/1.65, 1.0f));
+    walls[3]->setInitialPos(glm::vec4(-MAP_SIZE, 0.0f, -MAP_SIZE/2.45, 1.0f));
+    walls[4]->setInitialPos(glm::vec4(MAP_SIZE, 0.0f, MAP_SIZE/1.65, 1.0f));
+    walls[5]->setInitialPos(glm::vec4(MAP_SIZE, 0.0f, -MAP_SIZE/2.45, 1.0f));
+    walls[6]->setInitialPos(glm::vec4(-MAP_SIZE, 0.0f, MAP_SIZE/1.65, 1.0f));
+    walls[7]->setInitialPos(glm::vec4(-MAP_SIZE, 0.0f, -MAP_SIZE/2.45, 1.0f));
 
     ghost_0 = std::make_unique<Ghost>(Ghost());
     ghost_0->setInitialPos(glm::vec4(0.0f, 0.5f, MAP_SIZE - GHOST_OFFSET, 1.0f));
@@ -126,7 +138,7 @@ void SnakeGame::updateScreenFrame() {
 
         case GameMode::Running:
             /* update all in game elements */
-            pacman->update();
+            pacman->update(this->should_update_pacman);
 
             /* check for collisions */
             checkCollisions();
@@ -151,51 +163,65 @@ void SnakeGame::updateScreenFrame() {
     glUniform1i(object_id, WALL);
 
     //LADO 1
-    draw(wall,
-         Matrix_Translate(MAP_SIZE, 0.0f, MAP_SIZE/1.65) * Matrix_Scale(0.5f, 0.5f, 0.6f),
+    draw(walls[0],
+         Matrix_Translate(walls[0]->getPos().x, 0.0f, walls[0]->getPos().z) * Matrix_Scale(0.5f, 0.5f, 0.6f),
          model_uniform,
          bbox_min_uniform,
          bbox_max_uniform);
-    draw(wall,
-         Matrix_Translate(MAP_SIZE, 0.0f, -MAP_SIZE/2.45) * Matrix_Scale(0.5f, 0.5f, 0.6f),
+
+    draw(walls[1],
+         Matrix_Translate(walls[1]->getPos().x, 0.0f, walls[1]->getPos().z) * Matrix_Scale(0.5f, 0.5f, 0.6f),
          model_uniform,
          bbox_min_uniform,
          bbox_max_uniform);
 
     //LADO 2
-    draw(wall,
-         Matrix_Identity() * Matrix_Translate(-MAP_SIZE, 0.0f, MAP_SIZE/1.65) * Matrix_Scale(0.5f, 0.5f, 0.6f),
+    draw(walls[2],
+         Matrix_Identity() * Matrix_Translate(walls[2]->getPos().x, 0.0f, walls[2]->getPos().z) * Matrix_Scale(0.5f, 0.5f, 0.6f),
          model_uniform,
          bbox_min_uniform, bbox_max_uniform);
-    draw(wall,
-         Matrix_Identity() * Matrix_Translate(-MAP_SIZE, 0.0f, -MAP_SIZE/2.45) * Matrix_Scale(0.5f, 0.5f, 0.6f),
+
+    draw(walls[3],
+         Matrix_Identity() * Matrix_Translate(walls[3]->getPos().x, 0.0f, walls[3]->getPos().z) * Matrix_Scale(0.5f, 0.5f, 0.6f),
          model_uniform,
          bbox_min_uniform,
          bbox_max_uniform);
 
     //LADO 3
-    draw(wall,
-         Matrix_Identity() * Matrix_Rotate_Y(M_PI/2) * Matrix_Translate(MAP_SIZE, 0.0f, MAP_SIZE/1.65) * Matrix_Scale(0.5f, 0.5f, 0.6f),
-         model_uniform,
-         bbox_min_uniform,
-         bbox_max_uniform);
-    draw(wall,
-         Matrix_Identity() * Matrix_Rotate_Y(M_PI/2) * Matrix_Translate(MAP_SIZE, 0.0f, -MAP_SIZE/2.45) * Matrix_Scale(0.5f, 0.5f, 0.6f),
+    draw(walls[4],
+         Matrix_Identity() * Matrix_Rotate_Y(M_PI/2) * Matrix_Translate(walls[4]->getPos().x, 0.0f, walls[4]->getPos().z) * Matrix_Scale(0.5f, 0.5f, 0.6f),
          model_uniform,
          bbox_min_uniform,
          bbox_max_uniform);
 
+
+    draw(walls[5],
+         Matrix_Identity() * Matrix_Rotate_Y(M_PI/2) * Matrix_Translate(walls[5]->getPos().x, 0.0f, walls[5]->getPos().z) * Matrix_Scale(0.5f, 0.5f, 0.6f),
+         model_uniform,
+         bbox_min_uniform,
+         bbox_max_uniform);
+
+
+
     //LADO 4
-    draw(wall,
-         Matrix_Identity() * Matrix_Rotate_Y(M_PI/2) * Matrix_Translate(-MAP_SIZE, 0.0f, MAP_SIZE/1.65) * Matrix_Scale(0.5f, 0.5f, 0.6f),
+    draw(walls[6],
+         Matrix_Identity() * Matrix_Rotate_Y(M_PI/2) * Matrix_Translate(walls[6]->getPos().x, 0.0f, walls[6]->getPos().z) * Matrix_Scale(0.5f, 0.5f, 0.6f),
          model_uniform,
          bbox_min_uniform,
          bbox_max_uniform);
-    draw(wall,
-         Matrix_Identity() * Matrix_Rotate_Y(M_PI/2) * Matrix_Translate(-MAP_SIZE, 0.0f, -MAP_SIZE/2.45) * Matrix_Scale(0.5f, 0.5f, 0.6f),
+
+    walls[6]->setSizeX(2.0f);
+    walls[6]->setSizeZ(MAP_SIZE/2.5);
+
+
+    draw(walls[7],
+         Matrix_Identity() * Matrix_Rotate_Y(M_PI/2) * Matrix_Translate(walls[7]->getPos().x, 0.0f, walls[7]->getPos().z) * Matrix_Scale(0.5f, 0.5f, 0.6f),
          model_uniform,
          bbox_min_uniform,
          bbox_max_uniform);
+
+    walls[7]->setSizeX(2.0f);
+    walls[7]->setSizeZ(MAP_SIZE/2.5);
 
     glUniform1i(object_id, CUBE);
     //Obstaculos 1
@@ -413,21 +439,32 @@ void SnakeGame::updateGameCamera() {
 }
 
 void SnakeGame::checkCollisions() {
-    //To Do - Checar somente quando estiver do lado certo (eixo Z) para melhorar performance
-    if(CheckSphereCubeCollision(pacman, ghost_0) || CheckSphereCubeCollision(pacman, ghost_1)){
+
+    //Checar somente quando estiver do lado certo (eixo Z) para melhorar performance
+    if(pacman->getPos().z > 0 && CheckSphereCubeCollision(pacman, ghost_0)){
+        game_mode = GameMode::Lost;
+    }
+
+    if(pacman->getPos().z < 0 && CheckSphereCubeCollision(pacman, ghost_1)) {
         game_mode = GameMode::Lost;
     }
 
     //Checar apenas no lado certo (eixo X) para melhorar performance
-    if(CheckSphereSphereCollision(apple_0, pacman)) {
+    if(pacman->getPos().x > 0 && CheckSphereSphereCollision(apple_0, pacman)) {
         apple_0->getNewPosition(APPLE_X_MAX, APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
         addPoint();
     }
 
-    if(CheckSphereSphereCollision(apple_1, pacman)) {
+    if(pacman->getPos().x < 0 && CheckSphereSphereCollision(apple_1, pacman)) {
         apple_1->getNewPosition(-APPLE_X_MAX, -APPLE_X_MIN, APPLE_Z_MIN, APPLE_Z_MAX);
         addPoint();
     }
+
+    if(CheckMapBoxCollision(pacman->getPos() + pacman->getDir(), MAP_SIZE-1, MAP_SIZE, -MAP_SIZE, -MAP_SIZE+1)) {
+        game_mode = GameMode::Lost;
+    };
+
+    should_update_pacman = true;
 }
 
 void SnakeGame::updateLastGameTime() {

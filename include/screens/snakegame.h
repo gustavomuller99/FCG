@@ -26,11 +26,12 @@ class SnakeGame: public ProgramScreen {
         void updateScreenFrame() override;
     private:
         static const int n_obs = 5*7;
+        static const int n_walls = 8;
 
         std::unique_ptr<SceneObject> pacman;
         std::unique_ptr<SceneObject> axis;
         std::unique_ptr<SceneObject> terrain;
-        std::unique_ptr<SceneObject> wall;
+        std::unique_ptr<SceneObject> walls[n_walls];
         std::unique_ptr<SceneObject> obsctacles[n_obs];
         std::unique_ptr<SceneObject> ghost_0;
         std::unique_ptr<SceneObject> ghost_1;
@@ -42,6 +43,7 @@ class SnakeGame: public ProgramScreen {
         int game_mode = GameMode::Dev;
         bool should_switch_dev = true;
         bool should_switch_lost = true;
+        bool should_update_pacman = true;
 
         float points = 0;
         float time = 0;

@@ -42,3 +42,28 @@ glm::vec3 Wall::getBBox_min() {
 glm::vec3 Wall::getBBox_max() {
     return this->bbox_max;
 }
+
+void Wall::setInitialPos(glm::vec4 initialPos) {
+    this->pos = initialPos;
+}
+
+glm::vec4 Wall::getPos(){
+    return this->pos;
+}
+
+void Wall::setSizeX(float newSize) {
+    this->sizeX = newSize;
+}
+
+void Wall::setSizeZ(float newSize) {
+    this->sizeZ = newSize;
+}
+
+float Wall::getSizeX() {
+    return this->sizeX;
+}
+
+float Wall::getSizeZ() {
+    return this->sizeZ;
+}
+
