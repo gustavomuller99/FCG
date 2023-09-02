@@ -20,7 +20,7 @@ bool CheckSphereCubeCollision(std::unique_ptr<SceneObject> &one, std::unique_ptr
     // get center point circle first
     glm::vec4 center(one->getPos());
     center.y = 0.0f;
-    glm::vec4 aabb_half_extents(two->getSizeX() / 2.0f, 0.0f, two->getSizeZ(), 1.0f);
+    glm::vec4 aabb_half_extents(two->getSizeX() / 2.0f, 0.0f, two->getSizeZ() /2.0f, 1.0f);
     // calculate AABB info (center)
     glm::vec4 aabb_center(
         two->getPos().x ,

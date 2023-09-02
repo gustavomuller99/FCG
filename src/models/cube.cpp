@@ -85,7 +85,7 @@ void* Cube::getFirstIndex() {
 }
 
 glm::vec4 Cube::getPos() {
-    return glm::vec4(0.0, radius, 0.0, 0.0);
+    return glm::vec4(this->pos.x, radius, this->pos.z, 1.0);
 }
 
 GLuint Cube::getIndexesNum() {
@@ -98,4 +98,16 @@ float Cube::getLineWidth() {
 
 float Cube::getSize() {
     return this->radius;
+}
+
+float Cube::getSizeX() {
+    return 1.2*this->radius;
+}
+
+float Cube::getSizeZ() {
+    return 1.2*this->radius;
+}
+
+void Cube::setInitialPos(glm::vec4 initialPos) {
+    this->pos = initialPos;
 }

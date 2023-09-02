@@ -211,9 +211,6 @@ void SnakeGame::updateScreenFrame() {
          bbox_min_uniform,
          bbox_max_uniform);
 
-    walls[6]->setSizeX(2.0f);
-    walls[6]->setSizeZ(MAP_SIZE/2.5);
-
 
     draw(walls[7],
          Matrix_Identity() * Matrix_Rotate_Y(M_PI/2) * Matrix_Translate(walls[7]->getPos().x, 0.0f, walls[7]->getPos().z) * Matrix_Scale(0.5f, 0.5f, 0.6f),
@@ -221,21 +218,21 @@ void SnakeGame::updateScreenFrame() {
          bbox_min_uniform,
          bbox_max_uniform);
 
-    walls[7]->setSizeX(2.0f);
-    walls[7]->setSizeZ(MAP_SIZE/2.5);
 
     glUniform1i(object_id, CUBE);
     //Obstaculos 1
     glm::vec4 starting_position = glm::vec4(MAP_SIZE/3, 1.0f, MAP_SIZE/2, 1.0f);
-    for(int i = 0; i < 7; i++) {
+    for(int i = 7; i < 14; i++) {
+        obsctacles[i]->setInitialPos(glm::vec4(starting_position.x + ((i-7) * 0.6f), obsctacles[i]->getPos()[1], starting_position.z, 1.0f));
          draw(obsctacles[i],
-             Matrix_Translate(starting_position.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position.z),
+             Matrix_Translate(starting_position.x + ((i-7) * 0.6f), obsctacles[i]->getPos()[1], starting_position.z),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
-        if(i == 3) {
+        if(i == 3+7) {
+            obsctacles[i]->setInitialPos(glm::vec4(starting_position.x + ((i-7) * 0.6f), obsctacles[i]->getPos()[1], starting_position.z - 0.6f, 1.0f));
             draw(obsctacles[i],
-             Matrix_Translate(starting_position.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position.z - 0.6f),
+             Matrix_Translate(starting_position.x + ((i-7) * 0.6f), obsctacles[i]->getPos()[1], starting_position.z - 0.6f),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
@@ -244,15 +241,17 @@ void SnakeGame::updateScreenFrame() {
 
     //Obstaculos 2
     glm::vec4 starting_position1 = glm::vec4(-MAP_SIZE/1.65, 1.0f, MAP_SIZE/2, 1.0f);
-    for(int i = 0; i < 7; i++) {
+    for(int i = 14; i < 21; i++) {
+        obsctacles[i]->setInitialPos(glm::vec4(starting_position1.x + ((i-14) * 0.6f), obsctacles[i]->getPos()[1], starting_position1.z, 1.0f));
          draw(obsctacles[i],
-             Matrix_Translate(starting_position1.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position1.z),
+             Matrix_Translate(starting_position1.x + ((i-14) * 0.6f), obsctacles[i]->getPos()[1], starting_position1.z),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
-        if(i == 3) {
+        if(i == 3+14) {
+            obsctacles[i]->setInitialPos(glm::vec4(starting_position1.x + ((i-14) * 0.6f), obsctacles[i]->getPos()[1], starting_position1.z - 0.6f, 1.0f));
             draw(obsctacles[i],
-             Matrix_Translate(starting_position1.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position1.z - 0.6f),
+             Matrix_Translate(starting_position1.x + ((i-14) * 0.6f), obsctacles[i]->getPos()[1], starting_position1.z - 0.6f),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
@@ -261,15 +260,17 @@ void SnakeGame::updateScreenFrame() {
 
     //Obstaculos 3
     glm::vec4 starting_position2 = glm::vec4(MAP_SIZE/3, 1.0f, -MAP_SIZE/1.65, 1.0f);
-    for(int i = 0; i < 7; i++) {
-         draw(obsctacles[i],
-             Matrix_Translate(starting_position2.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position2.z),
+    for(int i = 21; i < 28; i++) {
+        obsctacles[i]->setInitialPos(glm::vec4(starting_position2.x + ((i-21) * 0.6f), obsctacles[i]->getPos()[1], starting_position2.z, 1.0f));
+        draw(obsctacles[i],
+             Matrix_Translate(starting_position2.x + ((i-21) * 0.6f), obsctacles[i]->getPos()[1], starting_position2.z),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
-        if(i == 3) {
+        if(i == 3+21) {
+            obsctacles[i]->setInitialPos(glm::vec4(starting_position2.x + ((i-21) * 0.6f), obsctacles[i]->getPos()[1], starting_position2.z + 0.6f, 1.0f));
             draw(obsctacles[i],
-             Matrix_Translate(starting_position2.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position2.z + 0.6f),
+             Matrix_Translate(starting_position2.x + ((i-21) * 0.6f), obsctacles[i]->getPos()[1], starting_position2.z + 0.6f),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
@@ -278,15 +279,17 @@ void SnakeGame::updateScreenFrame() {
 
     //Obstaculos 4
     glm::vec4 starting_position3 = glm::vec4(-MAP_SIZE/1.65, 1.0f, -MAP_SIZE/1.65, 1.0f);
-    for(int i = 0; i < 7; i++) {
+    for(int i = 28; i < 35; i++) {
+        obsctacles[i]->setInitialPos(glm::vec4(starting_position3.x + ((i-28) * 0.6f), obsctacles[i]->getPos()[1], starting_position3.z, 1.0f));
          draw(obsctacles[i],
-             Matrix_Translate(starting_position3.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position3.z),
+             Matrix_Translate(starting_position3.x + ((i-28) * 0.6f), obsctacles[i]->getPos()[1], starting_position3.z),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
-        if(i == 3) {
+        if(i == 3+28) {
+            obsctacles[i]->setInitialPos(glm::vec4(starting_position3.x + ((i-28) * 0.6f), obsctacles[i]->getPos()[1], starting_position3.z + 0.6f, 1.0f));
             draw(obsctacles[i],
-             Matrix_Translate(starting_position3.x + (i * 0.6f), obsctacles[i]->getPos()[1], starting_position3.z + 0.6f),
+             Matrix_Translate(starting_position3.x + ((i-28) * 0.6f), obsctacles[i]->getPos()[1], starting_position3.z + 0.6f),
              model_uniform,
              bbox_min_uniform,
              bbox_max_uniform);
@@ -296,6 +299,7 @@ void SnakeGame::updateScreenFrame() {
     //Parede Central
     glm::vec4 starting_position4 = glm::vec4(+0.5f, 1.0f, -(9*0.3f), 1.0f);
     for(int i = 0; i < 7; i++){
+        obsctacles[i]->setInitialPos(glm::vec4(starting_position4.x, obsctacles[i]->getPos()[1], starting_position4.z + (i * 0.6f), 1.0f));
         draw(obsctacles[i],
              Matrix_Translate(starting_position4.x, obsctacles[i]->getPos()[1], starting_position4.z + (i * 0.6f)),
              model_uniform,
@@ -474,6 +478,39 @@ void SnakeGame::checkCollisions() {
     if(CheckMapBoxCollision(pacman->getPos() + pacman->getDir(), MAP_SIZE-1, MAP_SIZE, -MAP_SIZE, -MAP_SIZE+1)) {
         game_mode = GameMode::Lost;
     };
+
+    //Sempre checa colisao com a parede central
+    for(int i = 0; i < 8; i++) {
+        if(CheckSphereCubeCollision(pacman, obsctacles[i])) {
+            game_mode = GameMode::Lost;
+        };
+    }
+
+    if(pacman->getPos().z > 0 && pacman->getPos().x > 0) {
+        for(int i = 7; i < 14; i++) {
+            if(CheckSphereCubeCollision(pacman, obsctacles[i])) {
+                game_mode = GameMode::Lost;
+            };
+        }
+    } else if(pacman->getPos().z <= 0 && pacman->getPos().x > 0) {
+        for(int i = 21; i < 28; i++) {
+            if(CheckSphereCubeCollision(pacman, obsctacles[i])) {
+                game_mode = GameMode::Lost;
+            };
+        }
+    } else if(pacman->getPos().z > 0 && pacman->getPos().x < 0) {
+        for(int i = 14; i < 21; i++) {
+            if(CheckSphereCubeCollision(pacman, obsctacles[i])) {
+                game_mode = GameMode::Lost;
+            };
+        }
+    } else {
+        for(int i = 28; i < 35; i++) {
+            if(CheckSphereCubeCollision(pacman, obsctacles[i])) {
+                game_mode = GameMode::Lost;
+            };
+        }
+    }
 
     should_update_pacman = true;
 }
