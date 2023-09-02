@@ -57,7 +57,7 @@ SnakeGame::SnakeGame() {
 }
 
 void SnakeGame::updateScreenFrame() {
-    glClearColor(0.65f, 0.92f, 0.95f, 1.0f);
+    glClearColor(0.44f, 0.56f, 0.83f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glUseProgram(globalState.g_GpuProgramID);
