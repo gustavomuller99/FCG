@@ -19,12 +19,16 @@ class Pacman : public SceneObject {
         void update(bool shouldMoveForward) override;
         void reset() override;
         float getSize() override;
+        float getRot() override;
+        void updateAngle();
         void setInitialPos(glm::vec4 initialPos) override;
 
     private:
         GLfloat radius = 0.25;
         GLint points = 120;
         GLfloat angle_inc = (2 * M_PI * (360 / points)) / 360;
+        float pacman_angle = -M_PI / 2;
+        int pacman_angle_sign = 1;
 
         GLfloat speed = 2.0f;
         GLfloat tilt = 0.02f;

@@ -23,6 +23,7 @@
 
 SnakeGame::SnakeGame() {
     pacman = std::make_unique<Pacman>(Pacman());
+    pacman_top = std::make_unique<Pacman>(Pacman());
     axis = std::make_unique<Axis>(Axis());
     terrain = std::make_unique<Terrain>(Terrain());
 
@@ -330,7 +331,19 @@ void SnakeGame::updateScreenFrame() {
          bbox_max_uniform);
 
     glUniform1i(object_id, PACMAN);
-    draw(pacman, Matrix_Translate(pacman->getPos()[0], pacman->getPos()[1], pacman->getPos()[2]), model_uniform, bbox_min_uniform, bbox_max_uniform);
+    draw(pacman,
+         Matrix_Translate(pacman->getPos()[0], pacman->getPos()[1], pacman->getPos()[2]) * Matrix_Rotate_X(M_PI / 2),
+         model_uniform,
+         bbox_min_uniform,
+         bbox_max_uniform);
+     draw(pacman_top,
+         Matrix_Translate(pacman->getPos()[0], pacman->getPos()[1] - 0.01, pacman->getPos()[2]) *
+          Matrix_Rotate_Y(-atan2(pacman->getDir()[0], -pacman->getDir()[2])) *
+          Matrix_Rotate(pacman->getRot(), glm::vec4(1.0, 0.0, 0.0, 0.0)) *
+          Matrix_Scale(0.999, 0.999, 0.999),
+         model_uniform,
+         bbox_min_uniform,
+         bbox_max_uniform);
 
     float pad = TextRendering_LineHeight(globalState.window);
     char buffer[80];
@@ -340,10 +353,8 @@ void SnakeGame::updateScreenFrame() {
     TextRendering_PrintString(globalState.window, buffer, -1.0f+pad/10, -1.0f+1.5*pad, 1.2f);
 
     if (game_mode == GameMode::Lost) {
-        snprintf(buffer, 80, "Voce perdeu!", (int) points);
-        TextRendering_PrintString(globalState.window, buffer, -0.1, 1.5*pad, 1.2f);
-        snprintf(buffer, 80, "Pressione R para reiniciar o jogo", (int) points);
-        TextRendering_PrintString(globalState.window, buffer, -0.35, 0.0, 1.2f);
+        snprintf(buffer, 80, "Voce perdeu! Pressione R para reiniciar o jogo", (int) points);
+        TextRendering_PrintString(globalState.window, buffer, -1.0f+pad/10, -1.0f+3*pad, 1.2f);
     }
 }
 

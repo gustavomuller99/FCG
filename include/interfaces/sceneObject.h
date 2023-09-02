@@ -45,6 +45,9 @@ class SceneObject {
         }
         virtual void setSizeX(float newSize) { };
         virtual void setSizeZ(float newSize) { };
+        virtual float getRot() {
+            return 0.0f;
+        }
         ~SceneObject() = default;
     protected:
         GLuint vertex_array_object_id = -1;

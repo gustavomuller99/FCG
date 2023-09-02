@@ -374,7 +374,6 @@
 		<Unit filename="include/models/axis.h" />
 		<Unit filename="include/models/cube.h" />
 		<Unit filename="include/models/ghost.h" />
-		<Unit filename="include/models/item.h" />
 		<Unit filename="include/models/pacman.h" />
 		<Unit filename="include/models/terrain.h" />
 		<Unit filename="include/models/wall.h" />
