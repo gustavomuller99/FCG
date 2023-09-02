@@ -312,6 +312,7 @@ void SnakeGame::updateScreenFrame() {
          bbox_max_uniform);
      draw(pacman_top,
          Matrix_Translate(pacman->getPos()[0], pacman->getPos()[1] - 0.01, pacman->getPos()[2]) *
+          Matrix_Rotate_Y(-atan2(pacman->getDir()[0], -pacman->getDir()[2])) *
           Matrix_Rotate(pacman->getRot(), glm::vec4(1.0, 0.0, 0.0, 0.0)) *
           Matrix_Scale(0.999, 0.999, 0.999),
          model_uniform,
