@@ -19,6 +19,8 @@ class Ghost : public SceneObject {
         GLfloat speed = 1.5f;
         float last_frame = 0.0f;
         bool bChangeDirection = false;
+        float sizeX = 0.6f;
+        float sizeZ = 0.6f;
     public:
         GLuint buildTriangles() override;
         GLenum getRenderingMode() override;
@@ -31,6 +33,8 @@ class Ghost : public SceneObject {
         void update() override;
         void setInitialPos(glm::vec4 initialPos) override;
         float getSize() override;
+        float getSizeX() override;
+        float getSizeZ() override;
 };
 
 #endif

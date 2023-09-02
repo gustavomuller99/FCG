@@ -20,6 +20,7 @@ bool CheckSphereCubeCollision(std::unique_ptr<SceneObject> &one, std::unique_ptr
     // get center point circle first
     glm::vec4 center(one->getPos());
     center.y = 0.0f;
+    glm::vec4 aabb_half_extents(two->getSizeX() / 2.0f, 0.0f, two->getSizeZ(), 1.0f);
     // calculate AABB info (center)
     glm::vec4 aabb_center(
         two->getPos().x ,
@@ -27,12 +28,13 @@ bool CheckSphereCubeCollision(std::unique_ptr<SceneObject> &one, std::unique_ptr
         two->getPos().z,
         0.0f
     );
-    // get difference vector between both centers
+
     glm::vec4 difference = center - aabb_center;
-    glm::vec4 clamped = glm::clamp(difference, -two->getSize(), two->getSize());
+    glm::vec4 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
+
     // add clamped value to AABB_center and we get the value of box closest to circle
     glm::vec4 closest = aabb_center + clamped;
-    // retrieve vector between center circle and closest point AABB and check if length <= size
+    // retrieve vector between center circle and closest point AABB and check if length <= radius
     difference = closest - center;
     return glm::length(difference) < one->getSize();
 }
