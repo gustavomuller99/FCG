@@ -27,11 +27,11 @@ void Apple::update() {
     float speed = delta_time * 1.0;
 
     glm::vec2 nextPt = getNextPt(this->t, this->p1, this->p2, this->p3, this->p4);
-    this->pos.z += nextPt.x;
+    this->pos.z = this->pos.z + nextPt.x >= this->initialPos.z + 1 ? this->initialPos.z + 1 : this->pos.z+ nextPt.x;
 
     if(!this->bChangeDirection) {
         if(this->t >= 0.5) {
-            this->pos.y = this->pos.y + nextPt.y >= 1 ? 1 : this->pos.y + nextPt.y;
+            this->pos.y = this->pos.y + nextPt.y >= 1 ? 0.7 : this->pos.y + nextPt.y;
         } else {
             this->pos.y = this->pos.y - nextPt.y <= 0.5 ? 0.5 : this->pos.y - nextPt.y;
         }
@@ -44,7 +44,7 @@ void Apple::update() {
     }
 
     if(this->t <= 0.5) {
-        this->pos.y = this->pos.y + nextPt.y >= 1 ? 1 : this->pos.y + nextPt.y;
+        this->pos.y = this->pos.y + nextPt.y >= 0.7 ? 0.7 : this->pos.y + nextPt.y;
     } else {
         this->pos.y = this->pos.y - nextPt.y <= 0.5 ? 0.5 : this->pos.y - nextPt.y;
     }
@@ -57,6 +57,7 @@ void Apple::update() {
 }
 
 void Apple::setInitialPos(glm::vec4 initialPos) {
+    this->initialPos = initialPos;
     this->pos = initialPos;
 }
 

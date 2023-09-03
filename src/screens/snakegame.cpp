@@ -108,9 +108,7 @@ void SnakeGame::updateScreenFrame() {
     }
     */
 
-    apple_0->update();
-    apple_1->update();
-
+    
     ghost_0->update();
     ghost_1->update();
 
@@ -140,7 +138,8 @@ void SnakeGame::updateScreenFrame() {
         case GameMode::Running:
             /* update all in game elements */
             pacman->update(this->should_update_pacman);
-
+            apple_0->update();
+            apple_1->update();
             /* check for collisions */
             checkCollisions();
 
