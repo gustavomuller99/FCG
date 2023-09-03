@@ -1,5 +1,7 @@
 # FCG - Trabalho Final - Gabriel Viecili Pillonetto e Gustavo Ivan Muller
 
+**Para arquivo executável, acesse /bin/debug/main.exe**
+
 # Descrição
 - Pacman com modo de câmera livre para desenvolvimento e modo jogo. O objetivo do jogo é comer a quantidade máxima de maçãs sem colidir contra: 1. fantasmas, 2. obejtos do mapa e 3. limites do mapa.
 
@@ -86,3 +88,4 @@
 ### Instruções de compilação.
 - Utilização das opções de linker 'lib\libglfw3.a -lgdi32 -lopengl32'
 - Utilização do padrão C++ 14
+- **Para arquivo executável, acesse /bin/debug/main.exe**
