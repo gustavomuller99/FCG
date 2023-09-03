@@ -29,10 +29,10 @@ class Apple : public SceneObject {
         glm::vec3 bbox_min;
         glm::vec3 bbox_max;
         float last_frame = 0.0f;
-        glm::vec2 p1 = glm::vec2(0, 0);
-        glm::vec2 p2 = glm::vec2(0, 0.001);
-        glm::vec2 p3 = glm::vec2(2, 0.001);
-        glm::vec2 p4 = glm::vec2(2, 0);
+        glm::vec2 p1 = glm::vec2(-0.001, 0);
+        glm::vec2 p2 = glm::vec2(-0.005, 0.001);
+        glm::vec2 p3 = glm::vec2(0.005, 0.001);
+        glm::vec2 p4 = glm::vec2(0.001, 0);
         bool bChangeDirection = false;
         float t = 0.0f;
 };
