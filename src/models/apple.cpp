@@ -45,7 +45,7 @@ void Apple::update() {
 
     if(this->t <= 0.5) {
         this->pos.y = this->pos.y + nextPt.y >= 1 ? 1 : this->pos.y + nextPt.y;
-    } else {-
+    } else {
         this->pos.y = this->pos.y - nextPt.y <= 0.5 ? 0.5 : this->pos.y - nextPt.y;
     }
 

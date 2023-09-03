@@ -104,13 +104,6 @@ void main()
 
             vertex_color = (lambert + 0.01 + ambient_term);
             break;
-        case PACMAN:
-            Ka = vec3(1, 1, 1);
-            // Termo ambiente
-            ambient_term = Ka*Ia;
-
-            vertex_color = (lambert + 0.01 + ambient_term);
-            break;
         default:
             break;
     }

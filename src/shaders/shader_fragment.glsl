@@ -155,7 +155,7 @@ void main()
             V = (phi + M_PI / 2) / M_PI;
             Kd0 = texture(Pacman, vec2(U,V)).rgb + vec3(.8f, .8f, 0.0f);
 
-            /*Ka = vec3(1, 1, 1);
+            Ka = vec3(1, 1, 1);
             Ks = vec3(1, 1, 1);
             q = 128;
             // Termo ambiente
@@ -165,9 +165,7 @@ void main()
 
             color.rgb = Kd0 * (lambert + 0.01 + ambient_term + phong_specular_term);
             color.a = 1;
-            color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);*/
-
-            color.rgb = Kd0 * vertex_color;
+            color.rgb = pow(color.rgb, vec3(1.0,1.0,1.0)/2.2);
             break;
 
         case CUBE:
