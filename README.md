@@ -49,11 +49,15 @@
 
 ### Mapeamento de texturas.
 - Todos os elementos são definidos com texturas que se encontram no diretório /data (feito por ambos da dupla).
-- Os objetos do Pacman e obstáculos (cubos) foram mapeados com mapeamento de textura esférica e cúbica, respectivamente.
+- Os objetos do Pacman e obstáculos (cubos) foram mapeados com mapeamento de textura esférica e cúbica, respectivamente (Gustavo).
 
 
 ### Curvas de Bézier. 
 - Definidas por 4 pontos de controle e utilizadas para definir o deslocamento das maçãs (Gabriel).
+
+
+### Animação de Movimento baseada no tempo.
+- Todos os objetos que se movem no jogo foram feitos utilizando tempo independente da CPU (feito por ambos da dupla). 
 
 
 -----
