@@ -123,8 +123,8 @@ void SnakeGame::updateScreenFrame() {
             resetPoints();
 
             updateFreeCamera();
-            glUniform1i(object_id, AXIS);
-            draw(axis, Matrix_Identity(), model_uniform, bbox_min_uniform, bbox_max_uniform);
+            //glUniform1i(object_id, AXIS);
+            //draw(axis, Matrix_Identity(), model_uniform, bbox_min_uniform, bbox_max_uniform);
             break;
 
         case GameMode::Lost:

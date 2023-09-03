@@ -31,9 +31,9 @@ void Apple::update() {
 
     if(!this->bChangeDirection) {
         if(this->t >= 0.5) {
-            this->pos.y += nextPt.y;
+            this->pos.y = this->pos.y + nextPt.y >= 1 ? 1 : this->pos.y + nextPt.y;
         } else {
-            this->pos.y = this->pos.y - nextPt.y <= 0.15 ? 0.15 : this->pos.y - nextPt.y;
+            this->pos.y = this->pos.y - nextPt.y <= 0.5 ? 0.5 : this->pos.y - nextPt.y;
         }
         this->t = this->t + speed >= 1 ? 1 : this->t + speed;
 
@@ -44,9 +44,9 @@ void Apple::update() {
     }
 
     if(this->t <= 0.5) {
-        this->pos.y += nextPt.y;
-    } else {
-        this->pos.y = this->pos.y - nextPt.y <= 0.15 ? 0.15 : this->pos.y - nextPt.y;
+        this->pos.y = this->pos.y + nextPt.y >= 1 ? 1 : this->pos.y + nextPt.y;
+    } else {-
+        this->pos.y = this->pos.y - nextPt.y <= 0.5 ? 0.5 : this->pos.y - nextPt.y;
     }
 
     this->t = this->t - speed <= 0 ? 0 : this->t - speed;
